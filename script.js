@@ -739,6 +739,8 @@ document.getElementById(
 "auth-screen"
 ).style.display = "none";
 
+pobierzDniPracy();
+
 console.log(
 "Zalogowano:",
 user.uid
