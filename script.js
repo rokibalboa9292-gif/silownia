@@ -586,6 +586,8 @@ await setDoc(ref,{
 content:content
 });
 
+await pobierzDniPracy();
+
 document.getElementById("podglad").value =
 content;
 
