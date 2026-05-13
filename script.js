@@ -500,7 +500,143 @@ renderTasks(currentTasks);
 DNI PRACA
 ========================= */
 
+/* =========================
+DNI PRACA - FIRESTORE
+========================= */
 
+async function pobierzDniPracy(){
+
+const user = auth.currentUser;
+
+if(!user) return;
+
+try{
+
+const ref = doc(db,"workLogs",user.uid);
+
+const snap = await getDoc(ref);
+
+if(snap.exists()){
+
+const data = snap.data();
+
+document.getElementById("podglad").value =
+data.content || "";
+
+}else{
+
+document.getElementById("podglad").value = "";
+
+}
+
+}catch(err){
+
+console.error(err);
+
+}
+
+}
+
+function dataDzisiaj(){
+
+const d = new Date();
+
+const dzien =
+String(d.getDate()).padStart(2,'0');
+
+const miesiac =
+String(d.getMonth()+1).padStart(2,'0');
+
+const rok = d.getFullYear();
+
+return `${dzien}.${miesiac}.${rok}`;
+
+}
+
+async function dodajLinie(godziny,h){
+
+const user = auth.currentUser;
+
+if(!user){
+
+alert("Musisz być zalogowany");
+
+return;
+
+}
+
+try{
+
+const ref = doc(db,"workLogs",user.uid);
+
+const snap = await getDoc(ref);
+
+let content = "";
+
+if(snap.exists()){
+
+content = snap.data().content || "";
+
+}
+
+content +=
+`${dataDzisiaj()} | ${godziny} | ${h}h\n`;
+
+await setDoc(ref,{
+content:content
+});
+
+document.getElementById("podglad").value =
+content;
+
+}catch(err){
+
+console.error(err);
+
+alert("Błąd zapisu");
+
+}
+
+}
+
+async function dodajPoranna(){
+
+await dodajLinie("6-15",9);
+
+}
+
+async function dodajWieczorna(){
+
+await dodajLinie("15-22",7);
+
+}
+
+async function wyczyscDniPracy(){
+
+const user = auth.currentUser;
+
+if(!user) return;
+
+try{
+
+await setDoc(
+doc(db,"workLogs",user.uid),
+{
+content:""
+}
+);
+
+document.getElementById("podglad").value = "";
+
+alert("Historia wyczyszczona");
+
+}catch(err){
+
+console.error(err);
+
+}
+
+}
 /* =========================
 LOGIN
 ========================= */
