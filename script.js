@@ -836,3 +836,114 @@ location.reload();
 }
 
 checkLogin();
+/* =========================
+AUTH SYSTEM
+========================= */
+
+async function registerUser(){
+
+const email =
+document.getElementById("email").value;
+
+const password =
+document.getElementById("password").value;
+
+try{
+
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+document.getElementById(
+"auth-status"
+).innerText =
+"Konto utworzone";
+
+}catch(error){
+
+document.getElementById(
+"auth-status"
+).innerText =
+error.message;
+
+}
+
+}
+
+async function loginUser(){
+
+const email =
+document.getElementById("email").value;
+
+const password =
+document.getElementById("password").value;
+
+try{
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+}catch(error){
+
+document.getElementById(
+"auth-status"
+).innerText =
+error.message;
+
+}
+
+}
+
+async function googleLogin(){
+
+try{
+
+await signInWithPopup(
+auth,
+provider
+);
+
+}catch(error){
+
+document.getElementById(
+"auth-status"
+).innerText =
+error.message;
+
+}
+
+}
+
+async function logout(){
+
+await signOut(auth);
+
+}
+
+onAuthStateChanged(auth,(user)=>{
+
+if(user){
+
+document.getElementById(
+"auth-screen"
+).style.display = "none";
+
+console.log(
+"Zalogowano:",
+user.uid
+);
+
+}else{
+
+document.getElementById(
+"auth-screen"
+).style.display = "flex";
+
+}
+
+});
