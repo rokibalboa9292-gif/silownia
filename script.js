@@ -743,11 +743,6 @@ document.getElementById(
 
 pobierzDniPracy();
 
-console.log(
-"Zalogowano:",
-user.uid
-);
-
 }else{
 
 document.getElementById(
