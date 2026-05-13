@@ -765,3 +765,4 @@ window.wybierzPlik = wybierzPlik;
 window.zaladujPlik = zaladujPlik;
 window.dodajPoranna = dodajPoranna;
 window.dodajWieczorna = dodajWieczorna;
+window.wyczyscDniPracy = wyczyscDniPracy;
