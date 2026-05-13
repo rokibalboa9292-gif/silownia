@@ -886,3 +886,13 @@ document.getElementById(
 }
 
 });
+window.registerUser = registerUser;
+window.loginUser = loginUser;
+window.googleLogin = googleLogin;
+window.logout = logout;
+window.showSchedule = showSchedule;
+window.resetChecklist = resetChecklist;
+window.wybierzPlik = wybierzPlik;
+window.zaladujPlik = zaladujPlik;
+window.dodajPoranna = dodajPoranna;
+window.dodajWieczorna = dodajWieczorna;
