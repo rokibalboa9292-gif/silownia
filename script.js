@@ -756,15 +756,6 @@ window.registerUser = registerUser;
 window.loginUser = loginUser;
 window.googleLogin = googleLogin;
 window.logout = logout;
-window.showSchedule = showSchedule;
-window.resetChecklist = resetChecklist;
-window.dodajPoranna = dodajPoranna;
-window.dodajWieczorna = dodajWieczorna;
-window.wyczyscDniPracy = wyczyscDniPracy;
-window.registerUser = registerUser;
-window.loginUser = loginUser;
-window.googleLogin = googleLogin;
-window.logout = logout;
 
 window.showSchedule = showSchedule;
 window.resetChecklist = resetChecklist;
