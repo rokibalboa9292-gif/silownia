@@ -774,68 +774,7 @@ btn.style.background = "#d62828";
 LOGIN
 ========================= */
 
-const USER_LOGIN = "admin";
-const USER_PASSWORD = "1234";
 
-function login(){
-
-const login =
-document.getElementById("login").value;
-
-const password =
-document.getElementById("password").value;
-
-const error =
-document.getElementById("login-error");
-
-if(
-login === USER_LOGIN
-&&
-password === USER_PASSWORD
-){
-
-localStorage.setItem(
-"loggedIn",
-"true"
-);
-
-document.getElementById(
-"login-screen"
-).style.display = "none";
-
-}else{
-
-error.innerText =
-"Nieprawidłowy login lub hasło";
-
-}
-
-}
-
-function checkLogin(){
-
-const logged =
-localStorage.getItem("loggedIn");
-
-if(logged === "true"){
-
-document.getElementById(
-"login-screen"
-).style.display = "none";
-
-}
-
-}
-
-function logout(){
-
-localStorage.removeItem("loggedIn");
-
-location.reload();
-
-}
-
-checkLogin();
 /* =========================
 AUTH SYSTEM
 ========================= */
