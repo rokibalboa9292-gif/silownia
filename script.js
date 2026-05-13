@@ -1,3 +1,47 @@
+
+/* =========================
+FIREBASE
+========================= */
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+signOut,
+onAuthStateChanged,
+GoogleAuthProvider,
+signInWithPopup
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+getFirestore,
+doc,
+setDoc,
+getDoc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyCVQEclpiWemC2VaRpalNmuty9Pc8cXvAw",
+authDomain: "silownia-c2593.firebaseapp.com",
+databaseURL: "https://silownia-c2593-default-rtdb.europe-west1.firebasedatabase.app",
+projectId: "silownia-c2593",
+storageBucket: "silownia-c2593.firebasestorage.app",
+messagingSenderId: "831014782830",
+appId: "1:831014782830:web:5d0fc41c465b78b6f8a37f"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+const provider = new GoogleAuthProvider();
 /* =========================
 PLAN ZAJĘĆ
 ========================= */
