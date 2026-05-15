@@ -62,7 +62,7 @@ const schedules = {
 
 "17:30 – Kobieta na siłowni (Piotr)",
 
-"19:30 – Taekwon-do Junior (Darek)",
+"17:30 – Taekwon-do Junior (Darek)",
 
 "20:00 – Boks (Mateusz)"
 
@@ -92,9 +92,9 @@ const schedules = {
 
 "Piątek": [
 
-"18:00 – Taekwon-do (Darek)",
+"19:00 – Tabata (Iwonka)",
 
-"19:00 – Tabata (Iwonka)"
+"20:00 – Taekwon-do (Darek)"
 
 ],
 
@@ -102,7 +102,7 @@ const schedules = {
 
 "10:00 – Kobieta na siłowni (Piotr)",
 
-"13:30 – Taekwon-do Junior (Darek)"
+"12:00 – Taekwon-do Junior (Darek)"
 
 ],
 
