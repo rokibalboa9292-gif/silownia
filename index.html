@@ -258,6 +258,82 @@ readonly></textarea>
 
 </div>
 
+<div class="section">
+
+<h1>Kalkulator pieniędzy</h1>
+
+<h2>Monety</h2>
+
+<div class="money-grid">
+
+<div class="money-item">
+<label>5 zł</label>
+<input type="number" id="coin5" value="0">
+</div>
+
+<div class="money-item">
+<label>2 zł</label>
+<input type="number" id="coin2" value="0">
+</div>
+
+<div class="money-item">
+<label>1 zł</label>
+<input type="number" id="coin1" value="0">
+</div>
+
+<div class="money-item">
+<label>50 gr</label>
+<input type="number" id="coin50" value="0">
+</div>
+
+</div>
+
+<h2>Banknoty</h2>
+
+<div class="money-grid">
+
+<div class="money-item">
+<label>10 zł</label>
+<input type="number" id="bill10" value="0">
+</div>
+
+<div class="money-item">
+<label>20 zł</label>
+<input type="number" id="bill20" value="0">
+</div>
+
+<div class="money-item">
+<label>50 zł</label>
+<input type="number" id="bill50" value="0">
+</div>
+
+<div class="money-item">
+<label>100 zł</label>
+<input type="number" id="bill100" value="0">
+</div>
+
+<div class="money-item">
+<label>200 zł</label>
+<input type="number" id="bill200" value="0">
+</div>
+
+</div>
+
+<button class="money-btn" onclick="policzKase()">
+POLICZ SUMĘ
+</button>
+
+<div class="money-results">
+
+<p>Monety: <span id="coinsResult">0.00</span> zł</p>
+
+<p>Banknoty: <span id="billsResult">0.00</span> zł</p>
+
+<p><strong>RAZEM: <span id="totalResult">0.00</span> zł</strong></p>
+
+</div>
+
+</div>
 <script type="module" src="script.js"></script>
 
 </body>
