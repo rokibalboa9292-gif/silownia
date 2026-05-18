@@ -439,3 +439,58 @@ text-align:center;
 min-height:20px;
 font-weight:bold;
 }
+
+/* =========================
+KALKULATOR PIENIĘDZY
+========================= */
+
+.money-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
+margin-bottom:20px;
+}
+
+.money-item{
+background:#fafafa;
+padding:14px;
+border-radius:16px;
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+
+.money-item label{
+font-weight:bold;
+font-size:1.1rem;
+}
+
+.money-item input{
+padding:14px;
+border-radius:12px;
+border:2px solid #ddd;
+font-size:1.1rem;
+}
+
+.money-btn{
+width:100%;
+padding:18px;
+border:none;
+border-radius:16px;
+background:#2a9d8f;
+color:white;
+font-size:1.2rem;
+font-weight:bold;
+cursor:pointer;
+margin-top:10px;
+}
+
+.money-results{
+margin-top:20px;
+background:#111;
+color:#fff;
+padding:20px;
+border-radius:18px;
+font-size:1.2rem;
+line-height:2;
+}
