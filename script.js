@@ -891,3 +891,6 @@ document.getElementById("totalResult")
 }
 
 window.policzKase = policzKase;
+document
+.getElementById("moneyBtn")
+.addEventListener("click", policzKase);
