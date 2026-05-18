@@ -519,3 +519,21 @@ font-size:1.1rem;
 }
 
 }
+html,
+body{
+overflow-x:hidden;
+max-width:100%;
+}
+
+img,
+div,
+section,
+textarea,
+input,
+button{
+max-width:100%;
+}
+
+button{
+touch-action:manipulation;
+}
