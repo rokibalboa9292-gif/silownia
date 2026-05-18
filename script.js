@@ -763,3 +763,70 @@ window.resetChecklist = resetChecklist;
 window.dodajPoranna = dodajPoranna;
 window.dodajWieczorna = dodajWieczorna;
 window.wyczyscDniPracy = wyczyscDniPracy;
+/* =========================
+KALKULATOR PIENIĘDZY
+========================= */
+
+function policzKase(){
+
+const coin5 =
+Number(document.getElementById("coin5").value) || 0;
+
+const coin2 =
+Number(document.getElementById("coin2").value) || 0;
+
+const coin1 =
+Number(document.getElementById("coin1").value) || 0;
+
+const coin50 =
+Number(document.getElementById("coin50").value) || 0;
+
+const bill10 =
+Number(document.getElementById("bill10").value) || 0;
+
+const bill20 =
+Number(document.getElementById("bill20").value) || 0;
+
+const bill50 =
+Number(document.getElementById("bill50").value) || 0;
+
+const bill100 =
+Number(document.getElementById("bill100").value) || 0;
+
+const bill200 =
+Number(document.getElementById("bill200").value) || 0;
+
+/* MONETY */
+
+const sumaMonet =
+(coin5 * 5) +
+(coin2 * 2) +
+(coin1 * 1) +
+(coin50 * 0.5);
+
+/* BANKNOTY */
+
+const sumaBanknotow =
+(bill10 * 10) +
+(bill20 * 20) +
+(bill50 * 50) +
+(bill100 * 100) +
+(bill200 * 200);
+
+/* RAZEM */
+
+const razem =
+sumaMonet + sumaBanknotow;
+
+document.getElementById("coinsResult")
+.innerText = sumaMonet.toFixed(2);
+
+document.getElementById("billsResult")
+.innerText = sumaBanknotow.toFixed(2);
+
+document.getElementById("totalResult")
+.innerText = razem.toFixed(2);
+
+}
+
+window.policzKase = policzKase;
