@@ -682,6 +682,8 @@ error.message;
 
 async function loginUser(){
 
+console.log("LOGIN START");
+
 const email =
 document.getElementById("email").value;
 
@@ -696,7 +698,13 @@ email,
 password
 );
 
+console.log("LOGIN OK");
+
 }catch(error){
+
+console.error(error);
+
+alert(error.message);
 
 document.getElementById(
 "auth-status"
