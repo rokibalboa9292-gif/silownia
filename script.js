@@ -842,7 +842,6 @@ document.getElementById("totalResult")
 
 }
 
-window.policzKase = policzKase;
 
 const moneyBtn = document.getElementById("moneyBtn");
 
