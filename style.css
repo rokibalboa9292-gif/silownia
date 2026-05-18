@@ -415,6 +415,7 @@ padding:16px;
 border-radius:14px;
 border:2px solid #ddd;
 font-size:1rem;
+width:100%;
 }
 
 .auth-box button{
@@ -427,6 +428,7 @@ font-size:1.1rem;
 font-weight:bold;
 cursor:pointer;
 transition:0.2s;
+width:100%;
 }
 
 .auth-box button:hover{
