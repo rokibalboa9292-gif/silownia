@@ -444,10 +444,14 @@ font-weight:bold;
 KALKULATOR PIENIĘDZY
 ========================= */
 
+/* =========================
+KALKULATOR PIENIĘDZY
+========================= */
+
 .money-grid{
 display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:14px;
+grid-template-columns:1fr 1fr;
+gap:12px;
 margin-bottom:20px;
 }
 
@@ -457,40 +461,61 @@ padding:14px;
 border-radius:16px;
 display:flex;
 flex-direction:column;
-gap:8px;
 }
 
 .money-item label{
+font-size:1rem;
 font-weight:bold;
-font-size:1.1rem;
+margin-bottom:8px;
 }
 
 .money-item input{
-padding:14px;
-border-radius:12px;
+width:100%;
+padding:16px;
+font-size:1.2rem;
+border-radius:14px;
 border:2px solid #ddd;
-font-size:1.1rem;
 }
 
 .money-btn{
 width:100%;
 padding:18px;
-border:none;
-border-radius:16px;
-background:#2a9d8f;
-color:white;
 font-size:1.2rem;
 font-weight:bold;
-cursor:pointer;
+border:none;
+border-radius:18px;
+background:#2a9d8f;
+color:white;
 margin-top:10px;
+cursor:pointer;
 }
 
 .money-results{
 margin-top:20px;
 background:#111;
-color:#fff;
+color:white;
 padding:20px;
 border-radius:18px;
 font-size:1.2rem;
 line-height:2;
+word-break:break-word;
+}
+
+/* TELEFON */
+
+@media(max-width:480px){
+
+.money-grid{
+grid-template-columns:1fr;
+}
+
+.money-item input{
+font-size:1.3rem;
+padding:18px;
+}
+
+.money-results{
+font-size:1.1rem;
+}
+
 }
