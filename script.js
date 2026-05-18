@@ -848,3 +848,18 @@ const moneyBtn = document.getElementById("moneyBtn");
 if(moneyBtn){
     moneyBtn.addEventListener("click", policzKase);
 }
+const registerBtn = document.getElementById("registerBtn");
+const loginBtn = document.getElementById("loginBtn");
+const googleBtn = document.getElementById("googleBtn");
+
+if(registerBtn){
+    registerBtn.addEventListener("click", registerUser);
+}
+
+if(loginBtn){
+    loginBtn.addEventListener("click", loginUser);
+}
+
+if(googleBtn){
+    googleBtn.addEventListener("click", googleLogin);
+}
