@@ -410,14 +410,14 @@ margin:0 0 10px;
 font-size:2.2rem;
 }
 
-.login-box input{
+.auth-box input{
 padding:16px;
 border-radius:14px;
 border:2px solid #ddd;
 font-size:1rem;
 }
 
-.login-box button{
+.auth-box button{
 padding:16px;
 border:none;
 border-radius:14px;
@@ -429,11 +429,11 @@ cursor:pointer;
 transition:0.2s;
 }
 
-.login-box button:hover{
+.auth-box button:hover{
 background:#2a9d8f;
 }
 
-#login-error{
+#auth-error{
 color:red;
 text-align:center;
 min-height:20px;
