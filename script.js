@@ -775,63 +775,7 @@ window.wyczyscDniPracy = wyczyscDniPracy;
 KALKULATOR PIENIĘDZY
 ========================= */
 
-function policzKase(){
 
-const coin5 =
-parseInt(document.getElementById("coin5").value) || 0;
-
-const coin2 =
-parseInt(document.getElementById("coin2").value) || 0;
-
-const coin1 =
-parseInt(document.getElementById("coin1").value) || 0;
-
-const coin50 =
-parseInt(document.getElementById("coin50").value) || 0;
-
-const bill10 =
-parseInt(document.getElementById("bill10").value) || 0;
-
-const bill20 =
-parseInt(document.getElementById("bill20").value) || 0;
-
-const bill50 =
-parseInt(document.getElementById("bill50").value) || 0;
-
-const bill100 =
-parseInt(document.getElementById("bill100").value) || 0;
-
-const bill200 =
-parseInt(document.getElementById("bill200").value) || 0;
-
-const sumaMonet =
-(coin5 * 5) +
-(coin2 * 2) +
-(coin1 * 1) +
-(coin50 * 0.5);
-
-const sumaBanknotow =
-(bill10 * 10) +
-(bill20 * 20) +
-(bill50 * 50) +
-(bill100 * 100) +
-(bill200 * 200);
-
-const razem =
-sumaMonet + sumaBanknotow;
-
-document.getElementById("coinsResult").innerText =
-sumaMonet.toFixed(2);
-
-document.getElementById("billsResult").innerText =
-sumaBanknotow.toFixed(2);
-
-document.getElementById("totalResult").innerText =
-razem.toFixed(2);
-
-}
-
-window.policzKase = policzKase;
 /* =========================
 KALKULATOR PIENIĘDZY
 ========================= */
