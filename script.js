@@ -880,7 +880,7 @@ const ctx = canvas.getContext("2d");
 const generateStoryBtn = document.getElementById("generateStoryBtn");
 const downloadStoryBtn = document.getElementById("downloadStoryBtn");
 
-function getTodayName(){
+function getStoryTodayName(){
 
     const dni = [
         "Niedziela",
@@ -911,7 +911,7 @@ function getTodayName(){
 
 function getTodaySchedule(){
 
-    const today = getTodayName();
+    const today = getStoryTodayName();
 
     return schedules[today] || [];
 }
