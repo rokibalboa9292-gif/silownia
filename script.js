@@ -869,11 +869,9 @@ INSTAGRAM STORY GENERATOR
 ========================= */
 
 const storyImages = [
-    "/stories/1.jpg",
-    "/stories/2.jpg",
-    "/stories/3.jpg",
-    "/stories/4.jpg",
-    "/stories/5.jpg"
+    "/stories/1.png",
+    "/stories/2.png",
+    "/stories/3.png"
 ];
 
 const canvas = document.getElementById("storyCanvas");
