@@ -863,3 +863,316 @@ if(loginBtn){
 if(googleBtn){
     googleBtn.addEventListener("click", googleLogin);
 }
+
+/* =========================
+INSTAGRAM STORY GENERATOR
+========================= */
+
+const storyImages = [
+    "/stories/1.jpg",
+    "/stories/2.jpg",
+    "/stories/3.jpg",
+    "/stories/4.jpg",
+    "/stories/5.jpg"
+];
+
+const canvas = document.getElementById("storyCanvas");
+const ctx = canvas.getContext("2d");
+
+const generateStoryBtn = document.getElementById("generateStoryBtn");
+const downloadStoryBtn = document.getElementById("downloadStoryBtn");
+
+function getTodayName(){
+
+    const dni = [
+        "Niedziela",
+        "Poniedziałek",
+        "Wtorek",
+        "Środa",
+        "Czwartek",
+        "Piątek",
+        "Sobota"
+    ];
+
+    return dni[new Date().getDay()];
+}
+function getTodayName(){
+
+    const dni = [
+        "Niedziela",
+        "Poniedziałek",
+        "Wtorek",
+        "Środa",
+        "Czwartek",
+        "Piątek",
+        "Sobota"
+    ];
+
+    return dni[new Date().getDay()];
+}
+
+function getTodaySchedule(){
+
+    const today = getTodayName();
+
+    return schedules[today] || [];
+}
+
+function getRandomImage(){
+
+    const lastImage = localStorage.getItem("lastStoryImage");
+
+    let available = storyImages.filter(img => img !== lastImage);
+
+    if(available.length === 0){
+        available = [...storyImages];
+    }
+
+    const random = available[
+        Math.floor(Math.random() * available.length)
+    ];
+
+    localStorage.setItem("lastStoryImage", random);
+
+    return random;
+}
+async function generateStory(){
+
+    const imagePath = getRandomImage();
+
+    const img = new Image();
+
+    img.crossOrigin = "anonymous";
+
+    img.src = imagePath;
+
+    img.onload = () => {
+
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+
+        /* TŁO */
+
+        const scale = Math.max(
+            canvas.width / img.width,
+            canvas.height / img.height
+        );
+
+        const x = (canvas.width / 2) - (img.width / 2) * scale;
+        const y = (canvas.height / 2) - (img.height / 2) * scale;
+
+        ctx.drawImage(
+            img,
+            x,
+            y,
+            img.width * scale,
+            img.height * scale
+        );
+
+   /* DARK OVERLAY */
+
+        const gradient = ctx.createLinearGradient(0,0,0,canvas.height);
+
+        gradient.addColorStop(0,"rgba(0,0,0,0.35)");
+        gradient.addColorStop(1,"rgba(0,0,0,0.85)");
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+
+        /* HEADER */
+
+        ctx.fillStyle = "white";
+        ctx.textAlign = "center";
+
+        ctx.font = "bold 78px Arial";
+
+        ctx.fillText(
+            "DZISIEJSZE",
+            canvas.width/2,
+            180
+        );
+
+        ctx.font = "bold 110px Arial";
+
+        ctx.fillStyle = "#ffd60a";
+
+        ctx.fillText(
+            "ZAJĘCIA",
+            canvas.width/2,
+            290
+        );
+
+        /* GLOW */
+
+        ctx.shadowColor = "rgba(255,214,10,0.9)";
+        ctx.shadowBlur = 25;
+        /* DATE */
+
+        const now = new Date();
+
+        const dateText = now.toLocaleDateString("pl-PL",{
+            day:"2-digit",
+            month:"2-digit"
+        });
+
+        ctx.font = "bold 54px Arial";
+
+        ctx.fillStyle = "white";
+
+        ctx.fillText(
+            dateText,
+            canvas.width/2,
+            390
+        );
+
+        ctx.shadowBlur = 0;
+
+        /* PANEL */
+
+        ctx.fillStyle = "rgba(255,255,255,0.08)";
+
+        roundRect(
+            ctx,
+            70,
+            470,
+            940,
+            1050,
+            45,
+            true,
+            false
+        );
+
+       /* LISTA ZAJĘĆ */
+
+        const lessons = getTodaySchedule();
+
+        let yPos = 620;
+
+        lessons.forEach((lesson,index)=>{
+
+            const offset = Math.sin(Date.now()/600 + index) * 6;
+
+            ctx.fillStyle = "white";
+            ctx.textAlign = "left";
+
+            ctx.font = "bold 54px Arial";
+
+            ctx.fillText(
+                lesson,
+                120,
+                yPos + offset
+            );
+
+            ctx.fillStyle = "#ff006e";
+
+            ctx.beginPath();
+            ctx.arc(90,yPos-18,12,0,Math.PI*2);
+            ctx.fill();
+
+            yPos += 150;
+        });
+
+        /* FOOTER */
+
+        ctx.textAlign = "center";
+
+        ctx.fillStyle = "rgba(255,255,255,0.92)";
+
+        ctx.font = "bold 48px Arial";
+
+        ctx.fillText(
+            "CHALLENGE KLUB",
+            canvas.width/2,
+            1760
+        );
+
+        ctx.font = "38px Arial";
+
+        ctx.fillStyle = "rgba(255,255,255,0.75)";
+
+        ctx.fillText(
+            "Wpadaj na trening 🔥",
+            canvas.width/2,
+            1835
+        );
+
+    };
+}
+
+function roundRect(ctx,x,y,width,height,radius,fill,stroke){
+
+    if(typeof radius === 'number'){
+        radius = {
+            tl:radius,
+            tr:radius,
+            br:radius,
+            bl:radius
+        };
+    }
+
+    ctx.beginPath();
+
+    ctx.moveTo(x + radius.tl, y);
+
+    ctx.lineTo(x + width - radius.tr, y);
+
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
+
+    ctx.lineTo(x + width, y + height - radius.br);
+
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius.br, y + height);
+
+    ctx.lineTo(x + radius.bl, y + height);
+
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius.bl);
+
+    ctx.lineTo(x, y + radius.tl);
+
+    ctx.quadraticCurveTo(x, y, x + radius.tl, y);
+
+    ctx.closePath();
+
+    if(fill){
+        ctx.fill();
+    }
+
+    if(stroke){
+        ctx.stroke();
+    }
+}
+
+function downloadStory(){
+
+    const link = document.createElement("a");
+
+    const today = new Date().toISOString().split("T")[0];
+
+    link.download = `story-${today}.png`;
+
+    link.href = canvas.toDataURL("image/png",1.0);
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+}
+
+if(generateStoryBtn){
+
+    generateStoryBtn.addEventListener("click",generateStory);
+
+}
+
+if(downloadStoryBtn){
+
+    downloadStoryBtn.addEventListener("click",downloadStory);
+
+}
+
+window.addEventListener("load",()=>{
+
+    setTimeout(()=>{
+        generateStory();
+    },500);
+
+});
