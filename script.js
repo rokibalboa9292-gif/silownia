@@ -208,9 +208,13 @@ function showSchedule(day, element){
             : "ODWOŁAJ";
 
         cancelBtn.addEventListener("click",()=>{
-            toggleLessonCancellation(day,index);
-            showSchedule(day,element);
-        });
+
+    toggleLessonCancellation(day,index);
+
+    showSchedule(day,element);
+
+    generateStory();
+});
 
         div.appendChild(lessonText);
         div.appendChild(cancelBtn);
