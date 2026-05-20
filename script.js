@@ -1082,7 +1082,7 @@ function getRandomImage(){
 
         /* LOGO */
 
-        const logoWidth = 520;
+        const logoWidth = 860;
         const logoHeight = (210 / 887) * logoWidth;
 
         ctx.drawImage(
@@ -1160,7 +1160,7 @@ function getRandomImage(){
             let cleanText = lesson.text.replace(/\s*\(.*?\)/g, "");
 
             ctx.textAlign = "left";
-            ctx.font = "bold 60px Arial";
+            ctx.font = "bold 74px Arial";
 
             /* ZAWIJANIE */
 
@@ -1230,7 +1230,7 @@ function getRandomImage(){
                 ctx.fillText(
                     line,
                     130,
-                    yPos + (lineIndex * 68) + offset
+                    yPos + (lineIndex * 82) + offset
                 );
             });
 
@@ -1249,7 +1249,7 @@ function getRandomImage(){
                 ctx.font = "bold 60px Arial";
             }
 
-            yPos += (lines.length * 68) + 85;
+            yPos += (lines.length * 82) + 95;
         });
 
         /* FOOTER */
