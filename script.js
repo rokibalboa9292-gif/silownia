@@ -114,7 +114,110 @@ const schedules = {
 
 };
 
+function getTodayKey(){
+const schedules = {} dodaj:
+    const now = new Date();
+
+    return now.toISOString().split("T")[0];
+}
+
+function getCancelledLessons(day){
+
+    const todayKey = getTodayKey();
+
+    const data = JSON.parse(
+        localStorage.getItem("cancelledLessons") || "{}"
+    );
+
+    if(!data[todayKey]){
+        return [];
+    }
+
+    return data[todayKey][day] || [];
+}
+
+function toggleLessonCancellation(day,index){
+
+    const todayKey = getTodayKey();
+
+    const data = JSON.parse(
+        localStorage.getItem("cancelledLessons") || "{}"
+    );
+
+    if(!data[todayKey]){
+        data[todayKey] = {};
+    }
+
+    if(!data[todayKey][day]){
+        data[todayKey][day] = [];
+    }
+
+    const exists = data[todayKey][day].includes(index);
+
+    if(exists){
+
+        data[todayKey][day] = data[todayKey][day]
+            .filter(i => i !== index);
+
+    }else{
+
+        data[todayKey][day].push(index);
+    }
+
+    localStorage.setItem(
+        "cancelledLessons",
+        JSON.stringify(data)
+    );
+}
+
 function showSchedule(day, element){
+
+    document.querySelectorAll(".day-btn").forEach(btn=>{
+        btn.classList.remove("active");
+    });
+
+    if(element){
+        element.classList.add("active");
+    }
+
+    const scheduleBox = document.getElementById("schedule-box");
+
+    scheduleBox.innerHTML = "";
+
+    const cancelledLessons = getCancelledLessons(day);
+
+    schedules[day].forEach((item,index)=>{
+
+        const div = document.createElement("div");
+        div.className = "schedule-item";
+
+        const lessonText = document.createElement("div");
+        lessonText.innerText = item;
+
+        if(cancelledLessons.includes(index)){
+            lessonText.classList.add("lesson-cancelled");
+            lessonText.innerText += " ❌ ODWOŁANE";
+        }
+
+        const cancelBtn = document.createElement("button");
+
+        cancelBtn.className = "cancel-lesson-btn";
+
+        cancelBtn.innerText = cancelledLessons.includes(index)
+            ? "PRZYWRÓĆ"
+            : "ODWOŁAJ";
+
+        cancelBtn.addEventListener("click",()=>{
+            toggleLessonCancellation(day,index);
+            showSchedule(day,element);
+        });
+
+        div.appendChild(lessonText);
+        div.appendChild(cancelBtn);
+
+        scheduleBox.appendChild(div);
+    });
+}
 
 document.querySelectorAll(".day-btn").forEach(btn=>{
 
@@ -913,7 +1016,14 @@ function getTodaySchedule(){
 
     const today = getStoryTodayName();
 
-    return schedules[today] || [];
+    const lessons = schedules[today] || [];
+
+    const cancelled = getCancelledLessons(today);
+
+    return lessons.map((lesson,index)=>({
+        text: lesson,
+        cancelled: cancelled.includes(index)
+    }));
 }
 
 function getRandomImage(){
@@ -1049,24 +1159,39 @@ async function generateStory(){
 
             const offset = Math.sin(Date.now()/600 + index) * 6;
 
-            ctx.fillStyle = "white";
-            ctx.textAlign = "left";
+ctx.textAlign = "left";
+ctx.font = "bold 54px Arial";
 
-            ctx.font = "bold 54px Arial";
+if(lesson.cancelled){
 
-            ctx.fillText(
-                lesson,
-                120,
-                yPos + offset
-            );
+    ctx.fillStyle = "#ff3b30";
 
-            ctx.fillStyle = "#ff006e";
+    ctx.fillText(
+        `${lesson.text} - ODWOŁANE`,
+        120,
+        yPos + offset
+    );
 
-            ctx.beginPath();
-            ctx.arc(90,yPos-18,12,0,Math.PI*2);
-            ctx.fill();
+}else{
 
-            yPos += 150;
+    ctx.fillStyle = "white";
+
+    ctx.fillText(
+        lesson.text,
+        120,
+        yPos + offset
+    );
+}
+
+ctx.fillStyle = lesson.cancelled
+    ? "#ff3b30"
+    : "#ff006e";
+
+ctx.beginPath();
+ctx.arc(90,yPos-18,12,0,Math.PI*2);
+ctx.fill();
+
+yPos += 150;
         });
 
         /* FOOTER */
