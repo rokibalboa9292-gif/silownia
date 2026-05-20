@@ -958,6 +958,8 @@ const storyImages = [
     "/stories/3.png"
 ];
 
+const storyLogo = "/stories/logo.png";
+
 const canvas = document.getElementById("storyCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -1022,18 +1024,27 @@ function getRandomImage(){
     localStorage.setItem("lastStoryImage", random);
 
     return random;
-}
-async function generateStory(){
+}async function generateStory(){
 
     const imagePath = getRandomImage();
 
     const img = new Image();
+    const logo = new Image();
 
     img.crossOrigin = "anonymous";
+    logo.crossOrigin = "anonymous";
 
     img.src = imagePath;
+    logo.src = storyLogo;
 
-    img.onload = () => {
+    Promise.all([
+        new Promise(resolve => {
+            img.onload = resolve;
+        }),
+        new Promise(resolve => {
+            logo.onload = resolve;
+        })
+    ]).then(() => {
 
         ctx.clearRect(0,0,canvas.width,canvas.height);
 
@@ -1055,44 +1066,46 @@ async function generateStory(){
             img.height * scale
         );
 
-   /* DARK OVERLAY */
+        /* DARK OVERLAY */
 
         const gradient = ctx.createLinearGradient(0,0,0,canvas.height);
 
-        gradient.addColorStop(0,"rgba(0,0,0,0.35)");
-        gradient.addColorStop(1,"rgba(0,0,0,0.85)");
+        gradient.addColorStop(0,"rgba(0,0,0,0.45)");
+        gradient.addColorStop(1,"rgba(0,0,0,0.88)");
 
         ctx.fillStyle = gradient;
         ctx.fillRect(0,0,canvas.width,canvas.height);
 
-        /* HEADER */
+        /* LOGO */
 
-        ctx.fillStyle = "white";
+        const logoWidth = 520;
+        const logoHeight = (210 / 887) * logoWidth;
+
+        ctx.drawImage(
+            logo,
+            (canvas.width / 2) - (logoWidth / 2),
+            90,
+            logoWidth,
+            logoHeight
+        );
+
+        /* DZIEŃ TYGODNIA */
+
         ctx.textAlign = "center";
 
-        ctx.font = "bold 78px Arial";
-
-        ctx.fillText(
-            "DZISIEJSZE",
-            canvas.width/2,
-            180
-        );
-
-        ctx.font = "bold 110px Arial";
-
+        ctx.font = "bold 92px Arial";
         ctx.fillStyle = "#ffd60a";
 
+        ctx.shadowColor = "rgba(255,214,10,0.7)";
+        ctx.shadowBlur = 20;
+
         ctx.fillText(
-            "ZAJĘCIA",
-            canvas.width/2,
-            290
+            selectedDay.toUpperCase(),
+            canvas.width / 2,
+            340
         );
 
-        /* GLOW */
-
-        ctx.shadowColor = "rgba(255,214,10,0.9)";
-        ctx.shadowBlur = 25;
-        /* DATE */
+        /* DATA */
 
         const now = new Date();
 
@@ -1101,115 +1114,138 @@ async function generateStory(){
             month:"2-digit"
         });
 
-        ctx.font = "bold 54px Arial";
-
+        ctx.font = "bold 68px Arial";
         ctx.fillStyle = "white";
 
         ctx.fillText(
             dateText,
-            canvas.width/2,
-            390
+            canvas.width / 2,
+            425
         );
 
         ctx.shadowBlur = 0;
 
         /* PANEL */
 
-        ctx.fillStyle = "rgba(255,255,255,0.08)";
+        ctx.fillStyle = "rgba(255,255,255,0.16)";
 
         roundRect(
             ctx,
-            70,
-            470,
-            940,
-            1050,
-            45,
+            55,
+            500,
+            970,
+            930,
+            42,
             true,
             false
         );
 
-       /* LISTA ZAJĘĆ */
+        /* LISTA ZAJĘĆ */
 
         const lessons = getTodaySchedule();
 
-        let yPos = 620;
+        let yPos = 630;
 
         lessons.forEach((lesson,index)=>{
 
-    const offset = Math.sin(Date.now()/600 + index) * 6;
+            const offset =
+                Math.sin(Date.now()/600 + index) * 4;
 
-    ctx.textAlign = "left";
-    ctx.font = "bold 54px Arial";
+            /* USUWANIE PROWADZĄCYCH */
 
-    if(lesson.cancelled){
+            let cleanText = lesson.text.replace(/\s*\(.*?\)/g, "");
 
-        ctx.fillStyle = "#ff3b30";
+            ctx.textAlign = "left";
+            ctx.font = "bold 60px Arial";
 
-        /* NAZWA ZAJĘĆ */
+            /* ZAWIJANIE */
 
-        ctx.fillText(
-            lesson.text,
-            120,
-            yPos + offset
-        );
+            const maxWidth = 760;
 
-        /* SKREŚLENIE */
+            const words = cleanText.split(" ");
+            const lines = [];
 
-        const textWidth =
-            ctx.measureText(lesson.text).width;
+            let currentLine = words[0];
 
-        ctx.beginPath();
+            for(let i = 1; i < words.length; i++){
 
-        ctx.lineWidth = 5;
+                const testLine =
+                    currentLine + " " + words[i];
 
-        ctx.moveTo(
-            120,
-            yPos - 20 + offset
-        );
+                const metrics =
+                    ctx.measureText(testLine);
 
-        ctx.lineTo(
-            120 + textWidth,
-            yPos - 20 + offset
-        );
+                if(metrics.width > maxWidth){
 
-        ctx.strokeStyle = "#ff3b30";
+                    lines.push(currentLine);
+                    currentLine = words[i];
 
-        ctx.stroke();
+                }else{
 
-        /* ODWOŁANE POD SPODEM */
+                    currentLine = testLine;
+                }
+            }
 
-        ctx.font = "bold 38px Arial";
+            lines.push(currentLine);
 
-        ctx.fillText(
-            "ODWOŁANE",
-            150,
-            yPos + 55 + offset
-        );
+            if(lesson.cancelled){
 
-        /* RESET FONTU */
+                ctx.fillStyle = "#ff3b30";
 
-        ctx.font = "bold 54px Arial";
+            }else{
 
-    }else{
+                ctx.fillStyle = "white";
+            }
 
-        ctx.fillStyle = "white";
+            /* KROPKA */
 
-        ctx.fillText(
-            lesson.text,
-            120,
-            yPos + offset
-        );
-    }
+            ctx.beginPath();
 
-ctx.fillStyle = lesson.cancelled
-    ? "#ff3b30"
-    : "#ff006e";
+            ctx.arc(
+                95,
+                yPos - 22 + offset,
+                12,
+                0,
+                Math.PI * 2
+            );
 
-ctx.beginPath();
-ctx.arc(90,yPos-18,12,0,Math.PI*2);
-ctx.fill();
+            ctx.fillStyle = lesson.cancelled
+                ? "#ff3b30"
+                : "#ff006e";
 
-yPos += 150;
+            ctx.fill();
+
+            /* TEKST */
+
+            ctx.fillStyle = lesson.cancelled
+                ? "#ff3b30"
+                : "white";
+
+            lines.forEach((line,lineIndex)=>{
+
+                ctx.fillText(
+                    line,
+                    130,
+                    yPos + (lineIndex * 68) + offset
+                );
+            });
+
+            /* ODWOŁANE */
+
+            if(lesson.cancelled){
+
+                ctx.font = "bold 38px Arial";
+
+                ctx.fillText(
+                    "ODWOŁANE",
+                    130,
+                    yPos + (lines.length * 68) + 15
+                );
+
+                ctx.font = "bold 60px Arial";
+            }
+
+            yPos += (lines.length * 68) + 85;
         });
 
         /* FOOTER */
@@ -1218,25 +1254,25 @@ yPos += 150;
 
         ctx.fillStyle = "rgba(255,255,255,0.92)";
 
-        ctx.font = "bold 48px Arial";
+        ctx.font = "bold 46px Arial";
 
         ctx.fillText(
             "CHALLENGE KLUB",
-            canvas.width/2,
-            1760
+            canvas.width / 2,
+            1680
         );
 
-        ctx.font = "38px Arial";
+        ctx.font = "36px Arial";
 
-        ctx.fillStyle = "rgba(255,255,255,0.75)";
+        ctx.fillStyle = "rgba(255,255,255,0.78)";
 
         ctx.fillText(
             "Wpadaj na trening 🔥",
-            canvas.width/2,
-            1835
+            canvas.width / 2,
+            1745
         );
 
-    };
+    });
 }
 
 function roundRect(ctx,x,y,width,height,radius,fill,stroke){
