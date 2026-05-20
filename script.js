@@ -1,4 +1,4 @@
-console.log("SCRIPT START updated");
+console.log("SCRIPT START updated 2");
 /* =========================
 FIREBASE
 ========================= */
