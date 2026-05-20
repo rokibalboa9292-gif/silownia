@@ -955,7 +955,11 @@ INSTAGRAM STORY GENERATOR
 const storyImages = [
     "/stories/1.png",
     "/stories/2.png",
-    "/stories/3.png"
+    "/stories/3.png",
+    "/stories/4.png",
+    "/stories/5.png",
+    "/stories/6.png",
+    "/stories/7.png",
 ];
 
 const storyLogo = "/stories/logo.png";
