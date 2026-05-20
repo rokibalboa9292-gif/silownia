@@ -115,7 +115,7 @@ const schedules = {
 };
 
 function getTodayKey(){
-const schedules = {} dodaj:
+
     const now = new Date();
 
     return now.toISOString().split("T")[0];
@@ -219,33 +219,6 @@ function showSchedule(day, element){
     });
 }
 
-document.querySelectorAll(".day-btn").forEach(btn=>{
-
-btn.classList.remove("active");
-
-});
-
-element.classList.add("active");
-
-const scheduleBox =
-document.getElementById("schedule-box");
-
-scheduleBox.innerHTML = "";
-
-schedules[day].forEach(item=>{
-
-const div =
-document.createElement("div");
-
-div.className = "schedule-item";
-
-div.innerText = item;
-
-scheduleBox.appendChild(div);
-
-});
-
-}
 
 /* =========================
 TASKI
