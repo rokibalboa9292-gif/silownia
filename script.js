@@ -1,4 +1,4 @@
-console.log("SCRIPT START updated 3");
+console.log("SCRIPT START updated 30");
 /* =========================
 FIREBASE
 ========================= */
@@ -172,6 +172,8 @@ function toggleLessonCancellation(day,index){
 
 function showSchedule(day, element){
 
+    selectedDay = day;
+    
     document.querySelectorAll(".day-btn").forEach(btn=>{
         btn.classList.remove("active");
     });
@@ -568,6 +570,8 @@ eveningBtn.classList.remove("active");
 renderTasks(currentTasks);
 
 });
+
+let selectedDay = "Poniedziałek";
 
 showSchedule(
 "Poniedziałek",
@@ -991,11 +995,9 @@ function getTodayName(){
 
 function getTodaySchedule(){
 
-    const today = getStoryTodayName();
+    const lessons = schedules[selectedDay] || [];
 
-    const lessons = schedules[today] || [];
-
-    const cancelled = getCancelledLessons(today);
+    const cancelled = getCancelledLessons(selectedDay);
 
     return lessons.map((lesson,index)=>({
         text: lesson,
