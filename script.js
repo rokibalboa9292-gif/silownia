@@ -1136,70 +1136,70 @@ async function generateStory(){
 
         lessons.forEach((lesson,index)=>{
 
-            const offset = Math.sin(Date.now()/600 + index) * 6;
+    const offset = Math.sin(Date.now()/600 + index) * 6;
 
-ctx.textAlign = "left";
-ctx.font = "bold 54px Arial";
-
-if(lesson.cancelled){
-
-    ctx.fillStyle = "#ff3b30";
-
-    /* SKREŚLENIE */
-
-    ctx.fillText(
-        lesson.text,
-        120,
-        yPos + offset
-    );
-
-    const textWidth =
-        ctx.measureText(lesson.text).width;
-
-    ctx.beginPath();
-
-    ctx.lineWidth = 5;
-
-    ctx.moveTo(
-        120,
-        yPos - 20 + offset
-    );
-
-    ctx.lineTo(
-        120 + textWidth,
-        yPos - 20 + offset
-    );
-
-    ctx.strokeStyle = "#ff3b30";
-
-    ctx.stroke();
-
-    /* NAPIS ODWOŁANE POD SPODEM */
-
-    ctx.font = "bold 38px Arial";
-
-    ctx.fillStyle = "#ff3b30";
-
-    ctx.fillText(
-        "ODWOŁANE",
-        150,
-        yPos + 55 + offset
-    );
-
-    /* PRZYWRÓĆ ROZMIAR FONTU */
-
+    ctx.textAlign = "left";
     ctx.font = "bold 54px Arial";
 
-}else{
+    if(lesson.cancelled){
 
-    ctx.fillStyle = "white";
+        ctx.fillStyle = "#ff3b30";
 
-    ctx.fillText(
-        lesson.text,
-        120,
-        yPos + offset
-    );
-}
+        /* NAZWA ZAJĘĆ */
+
+        ctx.fillText(
+            lesson.text,
+            120,
+            yPos + offset
+        );
+
+        /* SKREŚLENIE */
+
+        const textWidth =
+            ctx.measureText(lesson.text).width;
+
+        ctx.beginPath();
+
+        ctx.lineWidth = 5;
+
+        ctx.moveTo(
+            120,
+            yPos - 20 + offset
+        );
+
+        ctx.lineTo(
+            120 + textWidth,
+            yPos - 20 + offset
+        );
+
+        ctx.strokeStyle = "#ff3b30";
+
+        ctx.stroke();
+
+        /* ODWOŁANE POD SPODEM */
+
+        ctx.font = "bold 38px Arial";
+
+        ctx.fillText(
+            "ODWOŁANE",
+            150,
+            yPos + 55 + offset
+        );
+
+        /* RESET FONTU */
+
+        ctx.font = "bold 54px Arial";
+
+    }else{
+
+        ctx.fillStyle = "white";
+
+        ctx.fillText(
+            lesson.text,
+            120,
+            yPos + offset
+        );
+    }
 
 ctx.fillStyle = lesson.cancelled
     ? "#ff3b30"
