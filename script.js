@@ -1160,7 +1160,7 @@ function getRandomImage(){
             let cleanText = lesson.text.replace(/\s*\(.*?\)/g, "");
 
             ctx.textAlign = "left";
-            ctx.font = "bold 74px Arial";
+            ctx.font = "bold 88px Arial";
 
             /* ZAWIJANIE */
 
