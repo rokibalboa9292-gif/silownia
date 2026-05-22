@@ -1220,7 +1220,7 @@ lessons.forEach((lesson)=>{
         lesson.text.replace(/\s*\(.*?\)/g, "");
 
     if(lesson.cancelled){
-        cleanText += " ❌ ODWOŁANE";
+        cleanText += " ODWOŁANE";
     }
 
     const words = cleanText.split(" ");
