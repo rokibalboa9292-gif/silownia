@@ -1,4 +1,4 @@
-console.log("SCRIPT START newNEW 995");
+console.log("SCRIPT START newDUPP 995");
 /* =========================
 FIREBASE
 ========================= */
@@ -1199,7 +1199,7 @@ lessons.forEach((lesson)=>{
     lines.push(currentLine);
 
     const lessonHeight =
-        (lines.length * lineHeight) + 110;
+    (lines.length * lineHeight) + 55;
 
     totalHeight += lessonHeight;
 
@@ -1213,8 +1213,8 @@ lessons.forEach((lesson)=>{
 PANEL DYNAMICZNY
 ========================= */
 
-const panelPaddingTop = 90;
-const panelPaddingBottom = 90;
+const panelPaddingTop = 55;
+const panelPaddingBottom = 55;
 
 const dynamicPanelHeight =
     totalHeight +
@@ -1222,7 +1222,7 @@ const dynamicPanelHeight =
     panelPaddingBottom;
 
 const panelY =
-    (canvas.height / 2) - (dynamicPanelHeight / 2) + 80;
+    (canvas.height / 2) - (dynamicPanelHeight / 2) + 170;
 
 ctx.fillStyle = "rgba(0,0,0,0.58)";
 
@@ -1307,7 +1307,7 @@ preparedLessons.forEach((lesson,index)=>{
         ctx.fillText(
             "ODWOŁANE",
             135,
-            yPos + (lesson.lines.length * lineHeight) + 20
+            yPos + (lesson.lines.length * lineHeight) - 12
         );
     }
 
