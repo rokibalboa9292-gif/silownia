@@ -1,4 +1,4 @@
-console.log("SCRIPT START heilll 2 D KING 9.0");
+console.log("SCRIPT START heilll 2 D KING 10.0");
 /* =========================
 FIREBASE
 ========================= */
@@ -1122,7 +1122,7 @@ ctx.textAlign = "center";
 
 /* DZIEŃ */
 
-ctx.font = "bold 92px Arial";
+ctx.font = "bold 102px Arial";
 
 ctx.lineWidth = 8;
 ctx.strokeStyle = "white";
@@ -1150,7 +1150,7 @@ const dateText = now.toLocaleDateString("pl-PL",{
     month:"2-digit"
 });
 
-ctx.font = "bold 68px Arial";
+ctx.font = "bold 102px Arial";
 
 ctx.strokeText(
     dateText,
@@ -1193,7 +1193,7 @@ if(lessonCount <= 2){
 
 }else if(lessonCount === 4){
 
-    dynamicFontSize = 100;
+    dynamicFontSize = 110;
 
 }else{
 
@@ -1389,7 +1389,7 @@ const bgWidth =
 const bgHeight =
     (lesson.lines.length * customLineHeight) + 25;
 
-ctx.fillStyle = "rgba(255,255,255,0.22)";
+ctx.fillStyle = "rgba(255,255,255,0.99)";
 
 roundRect(
     ctx,
