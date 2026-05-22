@@ -1209,10 +1209,19 @@ const cancelledCount =
 
 if(
     lessons.length > 3 &&
-    cancelledCount > 1 &&
     lesson.cancelled
 ){
-    calculatedFontSize = dynamicFontSize - 18;
+
+    if(cancelledCount > 2){
+
+        calculatedFontSize =
+            dynamicFontSize - 32;
+
+    }else if(cancelledCount > 1){
+
+        calculatedFontSize =
+            dynamicFontSize - 18;
+    }
 }
 
 const customLineHeight =
