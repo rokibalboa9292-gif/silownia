@@ -1209,31 +1209,6 @@ lessons.forEach((lesson)=>{
         lessonHeight
     });
 });
-/* =========================
-PANEL DYNAMICZNY
-========================= */
-
-const panelPaddingTop = 40;
-const panelPaddingBottom = 40;
-
-const dynamicPanelHeight =
-    totalHeight + 80;
-
-const panelY =
-    (canvas.height / 2) - (dynamicPanelHeight / 2) + 170;
-
-ctx.fillStyle = "rgba(0,0,0,0.58)";
-
-roundRect(
-    ctx,
-    55,
-    panelY,
-    970,
-    dynamicPanelHeight,
-    42,
-    true,
-    false
-);
 
 
 /* =========================
