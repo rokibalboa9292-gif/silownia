@@ -1243,11 +1243,11 @@ WYŚRODKOWANIE W PIONIE
 const panelTop = panelY;
 const panelHeight = dynamicPanelHeight;
 
+/* idealne wyśrodkowanie bloków */
+
 let yPos =
     panelTop +
-    panelPaddingTop;
-
-/* =========================
+    ((panelHeight - totalHeight) / 2) + 35;/* =========================
 RENDER
 ========================= */
 
