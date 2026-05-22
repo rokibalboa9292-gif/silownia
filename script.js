@@ -1,4 +1,4 @@
-console.log("SCRIPT START heilll 2 D KING 5.0");
+console.log("SCRIPT START heilll 2 D KING 6.0");
 /* =========================
 FIREBASE
 ========================= */
@@ -1071,69 +1071,100 @@ function getRandomImage(){
         );
 
        
-        /* LOGO */
+       /* LOGO */
 
-        const logoWidth = 860;
-        const logoHeight = (210 / 887) * logoWidth;
+const logoWidth = 930;
+const logoHeight = (210 / 887) * logoWidth;
 
-        ctx.shadowColor = "rgba(255,214,10,0.95)";
-ctx.shadowBlur = 55;
-        
-        ctx.drawImage(
-            logo,
-            (canvas.width / 2) - (logoWidth / 2),
-            90,
-            logoWidth,
-            logoHeight
-        );
+/* BIAŁA POŚWIATA */
 
-        ctx.shadowBlur = 0;
+ctx.shadowColor = "rgba(255,255,255,0.95)";
+ctx.shadowBlur = 35;
 
-        /* DZIEŃ TYGODNIA */
+ctx.drawImage(
+    logo,
+    (canvas.width / 2) - (logoWidth / 2),
+    70,
+    logoWidth,
+    logoHeight
+);
 
-        ctx.textAlign = "center";
+/* ŻÓŁTA MOCNA POŚWIATA */
 
-        ctx.font = "bold 92px Arial";
-        ctx.fillStyle = "#ffd60a";
+ctx.shadowColor = "rgba(255,214,10,0.95)";
+ctx.shadowBlur = 90;
 
-        ctx.shadowColor = "rgba(255,214,10,0.7)";
-        ctx.shadowBlur = 20;
+ctx.drawImage(
+    logo,
+    (canvas.width / 2) - (logoWidth / 2),
+    70,
+    logoWidth,
+    logoHeight
+);
 
-        ctx.fillText(
-            selectedDay.toUpperCase(),
-            canvas.width / 2,
-            390
-        );
+/* FINAL LOGO */
 
-        /* DATA */
+ctx.shadowBlur = 0;
 
-        const now = new Date();
+ctx.drawImage(
+    logo,
+    (canvas.width / 2) - (logoWidth / 2),
+    70,
+    logoWidth,
+    logoHeight
+);
 
-        const dateText = now.toLocaleDateString("pl-PL",{
-            day:"2-digit",
-            month:"2-digit"
-        });
+/* DZIEŃ TYGODNIA */
 
-        ctx.font = "bold 74px Arial";
+ctx.textAlign = "center";
 
-ctx.lineWidth = 6;
+ctx.font = "bold 92px Arial";
+ctx.fillStyle = "#ffd60a";
+
+ctx.shadowColor = "rgba(0,0,0,0.55)";
+ctx.shadowBlur = 18;
+
+ctx.fillText(
+    selectedDay.toUpperCase(),
+    canvas.width / 2,
+    385
+);
+
+/* DATA */
+
+const now = new Date();
+
+const dateText = now.toLocaleDateString("pl-PL",{
+    day:"2-digit",
+    month:"2-digit"
+});
+
+ctx.font = "bold 68px Arial";
+
+/* OBRAMÓWKA */
+
+ctx.lineWidth = 8;
 ctx.strokeStyle = "white";
 
 ctx.strokeText(
     dateText,
     canvas.width / 2,
-    425
+    490
 );
 
-ctx.fillStyle = "black";
+/* ŻÓŁTY ŚRODEK */
+
+ctx.fillStyle = "#ffd60a";
 
 ctx.fillText(
     dateText,
     canvas.width / 2,
-    425
+    490
 );
 
-        ctx.shadowBlur = 0;
+ctx.shadowBlur = 0;
+
+        
 
         /* PANEL */
 
@@ -1329,11 +1360,19 @@ preparedLessons.forEach((lesson,index)=>{
     ctx.font =
         `${lessonFontSize}px 'Super Salad'`;
 
-    /* CZARNY TEKST + BIAŁE OBRAMOWANIE */
+    /* KOLOR ZAJĘĆ */
 
-    ctx.lineWidth = 8;
-    ctx.strokeStyle = "white";
+ctx.lineWidth = 8;
+ctx.strokeStyle = "white";
+
+if(lesson.cancelled){
+
+    ctx.fillStyle = "#ff2b2b";
+
+}else{
+
     ctx.fillStyle = "black";
+}
 
     lesson.lines.forEach((line,lineIndex)=>{
 
@@ -1355,36 +1394,39 @@ preparedLessons.forEach((lesson,index)=>{
         );
     });
 
-    /* PODKREŚLENIE */
+  /* ZAKREŚLACZ */
 
-    const underlineY =
-        yPos +
-        (lesson.lines.length * customLineHeight) +
-        8;
-
-    const longestLine =
-        lesson.lines.reduce((a,b)=>
-            a.length > b.length ? a : b
-        );
-
-    const textWidth =
-        ctx.measureText(longestLine).width;
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        (canvas.width / 2) - (textWidth / 2),
-        underlineY
+const longestLine =
+    lesson.lines.reduce((a,b)=>
+        a.length > b.length ? a : b
     );
 
-    ctx.lineTo(
-        (canvas.width / 2) + (textWidth / 2),
-        underlineY
-    );
+const textWidth =
+    ctx.measureText(longestLine).width;
 
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = "white";
-    ctx.stroke();
+const markerY =
+    yPos -
+    (lessonFontSize * 0.72);
+
+ctx.fillStyle = "rgba(255,255,255,0.32)";
+
+ctx.fillRect(
+    (canvas.width / 2) - (textWidth / 2) - 18,
+    markerY,
+    textWidth + 36,
+    lessonFontSize * 0.95
+);
+
+/* PRZYWRÓĆ KOLOR TEKSTU */
+
+if(lesson.cancelled){
+
+    ctx.fillStyle = "#ff2b2b";
+
+}else{
+
+    ctx.fillStyle = "black";
+}
 
     yPos += lesson.lessonHeight;
 
