@@ -1168,8 +1168,9 @@ let totalHeight = 0;
 
 lessons.forEach((lesson)=>{
 
-    let cleanText =
-        lesson.text.replace(/\s*\(.*?\)/g, "");
+    const cancelledY =
+    yPos +
+    (lesson.lines.length * lineHeight) - 8;
 
     const words = cleanText.split(" ");
 
@@ -1200,10 +1201,6 @@ lessons.forEach((lesson)=>{
 
     let lessonHeight =
 (lines.length * lineHeight) + 45;
-
-if(lesson.cancelled){
-    lessonHeight += 55;
-}
 
     totalHeight += lessonHeight;
 
@@ -1303,20 +1300,6 @@ preparedLessons.forEach((lesson,index)=>{
 
     /* ODWOŁANE */
 
-    if(lesson.cancelled){
-
-        ctx.font = "52px 'Super Salad'";
-
-        const cancelledY =
-    yPos +
-    (lesson.lines.length * lineHeight) - 8;
-
-ctx.fillText(
-    "ODWOŁANE",
-    135,
-    cancelledY
-);
-    }
 
     yPos += lesson.lessonHeight;
 
