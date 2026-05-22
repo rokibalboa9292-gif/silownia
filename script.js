@@ -1,4 +1,4 @@
-console.log("SCRIPT START updated 305");
+console.log("SCRIPT START updated 3405");
 /* =========================
 FIREBASE
 ========================= */
@@ -1151,7 +1151,7 @@ function getRandomImage(){
             let cleanText = lesson.text.replace(/\s*\(.*?\)/g, "");
 
             ctx.textAlign = "left";
-            ctx.font = "92px SuperSalad";
+            ctx.font = "92px Super Salad";
 
             /* ZAWIJANIE */
 
