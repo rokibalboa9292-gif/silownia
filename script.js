@@ -1,4 +1,4 @@
-console.log("SCRIPT START heilll");
+console.log("SCRIPT START heilll 2 D KING");
 /* =========================
 FIREBASE
 ========================= */
@@ -1168,9 +1168,12 @@ let totalHeight = 0;
 
 lessons.forEach((lesson)=>{
 
-    const cancelledY =
-    yPos +
-    (lesson.lines.length * lineHeight) - 8;
+    let cleanText =
+        lesson.text.replace(/\s*\(.*?\)/g, "");
+
+    if(lesson.cancelled){
+        cleanText += " ❌ ODWOŁANE";
+    }
 
     const words = cleanText.split(" ");
 
