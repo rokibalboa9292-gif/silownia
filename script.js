@@ -1199,7 +1199,7 @@ lessons.forEach((lesson)=>{
     lines.push(currentLine);
 
     const cancelledExtra =
-lesson.cancelled ? 60 : 0;
+lesson.cancelled ? 85 : 0;
 
 const lessonHeight =
 (lines.length * lineHeight) +
@@ -1311,7 +1311,7 @@ preparedLessons.forEach((lesson,index)=>{
         ctx.fillText(
     "ODWOŁANE",
     135,
-    yPos + (lesson.lines.length * lineHeight) + 8
+    yPos + (lesson.lines.length * lineHeight) + 18
 );
     }
 
