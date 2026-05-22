@@ -1122,18 +1122,31 @@ function getRandomImage(){
 
         /* PANEL */
 
-        ctx.fillStyle = "rgba(0,0,0,0.58)";
+        /* PANEL DYNAMICZNY */
 
-        roundRect(
-            ctx,
-            55,
-            500,
-            970,
-            930,
-            42,
-            true,
-            false
-        );
+const panelPaddingTop = 90;
+const panelPaddingBottom = 90;
+
+const dynamicPanelHeight =
+    totalHeight +
+    panelPaddingTop +
+    panelPaddingBottom;
+
+const panelY =
+    (canvas.height / 2) - (dynamicPanelHeight / 2) + 80;
+
+ctx.fillStyle = "rgba(0,0,0,0.58)";
+
+roundRect(
+    ctx,
+    55,
+    panelY,
+    970,
+    dynamicPanelHeight,
+    42,
+    true,
+    false
+);
 
         /* LISTA ZAJĘĆ */
 
@@ -1227,13 +1240,12 @@ lessons.forEach((lesson)=>{
 WYŚRODKOWANIE W PIONIE
 ========================= */
 
-const panelTop = 500;
-const panelHeight = 930;
+const panelTop = panelY;
+const panelHeight = dynamicPanelHeight;
 
 let yPos =
     panelTop +
-    ((panelHeight - totalHeight) / 2) +
-    70;
+    panelPaddingTop;
 
 /* =========================
 RENDER
