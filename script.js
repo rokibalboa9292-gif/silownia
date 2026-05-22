@@ -1297,7 +1297,7 @@ const dynamicPanelHeight =
 
 const panelY =
     (canvas.height / 2) -
-    (dynamicPanelHeight / 2) + 260;
+    (dynamicPanelHeight / 2) + 200;
 
 /* PANEL */
 
