@@ -1181,23 +1181,23 @@ DYNAMICZNY ROZMIAR FONTU
 
 const lessonCount = lessons.length;
 
-let dynamicFontSize = 92;
+let dynamicFontSize = (-20) - 92;
 
 if(lessonCount <= 2){
 
-    dynamicFontSize = 132;
+    dynamicFontSize = (-20) - 132;
 
 }else if(lessonCount === 3){
 
-    dynamicFontSize = 128;
+    dynamicFontSize = (-20) - 128;
 
 }else if(lessonCount === 4){
 
-    dynamicFontSize = 120;
+    dynamicFontSize = (-20) - 120;
 
 }else{
 
-    dynamicFontSize = 92;
+    dynamicFontSize = (-20) - 92;
 }
 
 const lineHeight = dynamicFontSize + 18;
