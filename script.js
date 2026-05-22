@@ -1070,16 +1070,7 @@ function getRandomImage(){
             img.height * scale
         );
 
-        /* DARK OVERLAY */
-
-        const gradient = ctx.createLinearGradient(0,0,0,canvas.height);
-
-        gradient.addColorStop(0,"rgba(0,0,0,0.45)");
-        gradient.addColorStop(1,"rgba(0,0,0,0.88)");
-
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0,0,canvas.width,canvas.height);
-
+       
         /* LOGO */
 
         const logoWidth = 860;
@@ -1131,7 +1122,7 @@ function getRandomImage(){
 
         /* PANEL */
 
-        ctx.fillStyle = "rgba(255,255,255,0.16)";
+        ctx.fillStyle = "rgba(0,0,0,0.58)";
 
         roundRect(
             ctx,
@@ -1160,7 +1151,7 @@ function getRandomImage(){
             let cleanText = lesson.text.replace(/\s*\(.*?\)/g, "");
 
             ctx.textAlign = "left";
-            ctx.font = "bold 88px Arial";
+            ctx.font = "92px SuperSalad";
 
             /* ZAWIJANIE */
 
