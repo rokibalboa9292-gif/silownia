@@ -1301,8 +1301,7 @@ preparedLessons.forEach((lesson,index)=>{
 
     yPos += lesson.lessonHeight;
 
-
-        });
+});
 
         /* FOOTER */
 
