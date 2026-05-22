@@ -1,4 +1,4 @@
-console.log("SCRIPT START hei");
+console.log("SCRIPT START heilll");
 /* =========================
 FIREBASE
 ========================= */
@@ -1198,14 +1198,11 @@ lessons.forEach((lesson)=>{
 
     lines.push(currentLine);
 
-    const cancelledExtra =
-lesson.cancelled ? 85 : 0;
-
-let lessonHeight =
-(lines.length * lineHeight) + 35;
+    let lessonHeight =
+(lines.length * lineHeight) + 45;
 
 if(lesson.cancelled){
-    lessonHeight += 95;
+    lessonHeight += 55;
 }
 
     totalHeight += lessonHeight;
@@ -1312,7 +1309,7 @@ preparedLessons.forEach((lesson,index)=>{
 
         const cancelledY =
     yPos +
-    (lesson.lines.length * lineHeight) + 22;
+    (lesson.lines.length * lineHeight) - 8;
 
 ctx.fillText(
     "ODWOŁANE",
