@@ -1,4 +1,4 @@
-console.log("SCRIPT START heilll 2 D KING 4.0");
+console.log("SCRIPT START heilll 2 D KING 5.0");
 /* =========================
 FIREBASE
 ========================= */
@@ -1076,6 +1076,9 @@ function getRandomImage(){
         const logoWidth = 860;
         const logoHeight = (210 / 887) * logoWidth;
 
+        ctx.shadowColor = "rgba(255,214,10,0.95)";
+ctx.shadowBlur = 55;
+        
         ctx.drawImage(
             logo,
             (canvas.width / 2) - (logoWidth / 2),
@@ -1083,6 +1086,8 @@ function getRandomImage(){
             logoWidth,
             logoHeight
         );
+
+        ctx.shadowBlur = 0;
 
         /* DZIEŃ TYGODNIA */
 
@@ -1097,7 +1102,7 @@ function getRandomImage(){
         ctx.fillText(
             selectedDay.toUpperCase(),
             canvas.width / 2,
-            340
+            390
         );
 
         /* DATA */
@@ -1109,14 +1114,24 @@ function getRandomImage(){
             month:"2-digit"
         });
 
-        ctx.font = "bold 68px Arial";
-        ctx.fillStyle = "white";
+        ctx.font = "bold 74px Arial";
 
-        ctx.fillText(
-            dateText,
-            canvas.width / 2,
-            425
-        );
+ctx.lineWidth = 6;
+ctx.strokeStyle = "white";
+
+ctx.strokeText(
+    dateText,
+    canvas.width / 2,
+    425
+);
+
+ctx.fillStyle = "black";
+
+ctx.fillText(
+    dateText,
+    canvas.width / 2,
+    425
+);
 
         ctx.shadowBlur = 0;
 
@@ -1284,71 +1299,96 @@ preparedLessons.forEach((lesson,index)=>{
     const offset =
         Math.sin(Date.now()/600 + index) * 3;
 
-    ctx.textAlign = "left";
+    ctx.textAlign = "center";
 
     let lessonFontSize = dynamicFontSize;
 
-const cancelledCount =
-    lessons.filter(l => l.cancelled).length;
+    const cancelledCount =
+        lessons.filter(l => l.cancelled).length;
 
-if(
-    lessons.length > 3 &&
-    cancelledCount > 1 &&
-    lesson.cancelled
-){
-    lessonFontSize = dynamicFontSize - 18;
-}
+    if(
+        lessons.length > 3 &&
+        lesson.cancelled
+    ){
 
-ctx.font = `${lessonFontSize}px 'Super Salad'`;
+        if(cancelledCount > 2){
 
-    /* KROPKA */
+            lessonFontSize =
+                dynamicFontSize - 32;
 
-    ctx.beginPath();
+        }else if(cancelledCount > 1){
 
-    ctx.arc(
-        95,
-        yPos - 26 + offset,
-        13,
-        0,
-        Math.PI * 2
-    );
+            lessonFontSize =
+                dynamicFontSize - 18;
+        }
+    }
 
-    ctx.fillStyle = lesson.cancelled
-        ? "#ff3b30"
-        : "#ff006e";
+    const customLineHeight =
+        lessonFontSize + 18;
 
-    ctx.fill();
+    ctx.font =
+        `${lessonFontSize}px 'Super Salad'`;
 
-    /* TEKST */
+    /* CZARNY TEKST + BIAŁE OBRAMOWANIE */
 
-    ctx.fillStyle = lesson.cancelled
-        ? "#ff3b30"
-        : "white";
-
-    ctx.shadowColor = "rgba(0,0,0,0.45)";
-    ctx.shadowBlur = 18;
+    ctx.lineWidth = 8;
+    ctx.strokeStyle = "white";
+    ctx.fillStyle = "black";
 
     lesson.lines.forEach((line,lineIndex)=>{
 
-        const customLineHeight =
-    lessonFontSize + 18;
+        const textY =
+            yPos +
+            (lineIndex * customLineHeight) +
+            offset;
 
-ctx.fillText(
-    line,
-    135,
-    yPos + (lineIndex * customLineHeight) + offset
-);
+        ctx.strokeText(
+            line,
+            canvas.width / 2,
+            textY
+        );
+
+        ctx.fillText(
+            line,
+            canvas.width / 2,
+            textY
+        );
     });
 
-    ctx.shadowBlur = 0;
+    /* PODKREŚLENIE */
 
-    /* ODWOŁANE */
+    const underlineY =
+        yPos +
+        (lesson.lines.length * customLineHeight) +
+        8;
 
+    const longestLine =
+        lesson.lines.reduce((a,b)=>
+            a.length > b.length ? a : b
+        );
+
+    const textWidth =
+        ctx.measureText(longestLine).width;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        (canvas.width / 2) - (textWidth / 2),
+        underlineY
+    );
+
+    ctx.lineTo(
+        (canvas.width / 2) + (textWidth / 2),
+        underlineY
+    );
+
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "white";
+    ctx.stroke();
 
     yPos += lesson.lessonHeight;
 
 });
-
         /* =========================
 GRADIENT POD FOOTER
 ========================= */
@@ -1385,23 +1425,26 @@ ctx.fillRect(
 
         ctx.fillStyle = "rgba(255,255,255,0.92)";
 
-        ctx.font = "bold 46px Arial";
+        
 
-        ctx.fillText(
-            "CHALLENGE KLUB",
-            canvas.width / 2,
-            1680
-        );
+        ctx.font = "bold 62px Arial";
 
-        ctx.font = "36px Arial";
+ctx.lineWidth = 6;
+ctx.strokeStyle = "white";
 
-        ctx.fillStyle = "rgba(255,255,255,0.78)";
+ctx.strokeText(
+    "ZAPRASZAMY NA TRENING 🔥",
+    canvas.width / 2,
+    1715
+);
 
-        ctx.fillText(
-            "Wpadaj na trening 🔥",
-            canvas.width / 2,
-            1745
-        );
+ctx.fillStyle = "black";
+
+ctx.fillText(
+    "ZAPRASZAMY NA TRENING 🔥",
+    canvas.width / 2,
+    1715
+);
 
     });
 }
