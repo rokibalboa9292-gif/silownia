@@ -1,4 +1,4 @@
-console.log("SCRIPT START new9998");
+console.log("SCRIPT START hei");
 /* =========================
 FIREBASE
 ========================= */
@@ -1201,10 +1201,12 @@ lessons.forEach((lesson)=>{
     const cancelledExtra =
 lesson.cancelled ? 85 : 0;
 
-const lessonHeight =
-(lines.length * lineHeight) +
-35 +
-cancelledExtra;
+let lessonHeight =
+(lines.length * lineHeight) + 35;
+
+if(lesson.cancelled){
+    lessonHeight += 95;
+}
 
     totalHeight += lessonHeight;
 
@@ -1308,10 +1310,14 @@ preparedLessons.forEach((lesson,index)=>{
 
         ctx.font = "52px 'Super Salad'";
 
-        ctx.fillText(
+        const cancelledY =
+    yPos +
+    (lesson.lines.length * lineHeight) + 22;
+
+ctx.fillText(
     "ODWOŁANE",
     135,
-    yPos + (lesson.lines.length * lineHeight) + 18
+    cancelledY
 );
     }
 
