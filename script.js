@@ -1226,7 +1226,7 @@ const panelY =
 
 /* PANEL */
 
-ctx.fillStyle = "rgba(0,0,0,0.58)";
+ctx.fillStyle = "rgba(0,0,0,0)";
 
 roundRect(
     ctx,
