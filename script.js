@@ -1234,6 +1234,8 @@ roundRect(
     true,
     false
 );
+
+
 /* =========================
 PANEL + WYŚRODKOWANIE
 ========================= */
@@ -1261,6 +1263,13 @@ roundRect(
     true,
     false
 );
+
+/* START TEKSTU - IDEALNY ŚRODEK */
+
+let yPos =
+    panelY +
+    (dynamicPanelHeight / 2) -
+    (totalHeight / 2);
 
 /* START TEKSTU - IDEALNY ŚRODEK */
 
