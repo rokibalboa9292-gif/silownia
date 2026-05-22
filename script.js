@@ -1,4 +1,4 @@
-console.log("SCRIPT START heilll 2 D KING 8.0");
+console.log("SCRIPT START heilll 2 D KING 9.0");
 /* =========================
 FIREBASE
 ========================= */
@@ -198,7 +198,7 @@ function showSchedule(day, element){
 
         if(cancelledLessons.includes(index)){
             lessonText.classList.add("lesson-cancelled");
-            lessonText.innerText += " ❌ ODWOŁANE";
+            lessonText.innerText += " ODWOŁANE";
         }
 
         const cancelBtn = document.createElement("button");
@@ -1114,15 +1114,26 @@ ctx.drawImage(
     logoHeight
 );
 
-/* DZIEŃ TYGODNIA */
+/* =========================
+DZIEŃ + DATA
+========================= */
 
 ctx.textAlign = "center";
 
-ctx.font = "bold 92px Arial";
-ctx.fillStyle = "#ffd60a";
+/* DZIEŃ */
 
-ctx.shadowColor = "rgba(0,0,0,0.55)";
-ctx.shadowBlur = 18;
+ctx.font = "bold 92px Arial";
+
+ctx.lineWidth = 8;
+ctx.strokeStyle = "white";
+
+ctx.fillStyle = "black";
+
+ctx.strokeText(
+    selectedDay.toUpperCase(),
+    canvas.width / 2,
+    385
+);
 
 ctx.fillText(
     selectedDay.toUpperCase(),
@@ -1141,20 +1152,11 @@ const dateText = now.toLocaleDateString("pl-PL",{
 
 ctx.font = "bold 68px Arial";
 
-/* OBRAMÓWKA */
-
-ctx.lineWidth = 8;
-ctx.strokeStyle = "white";
-
 ctx.strokeText(
     dateText,
     canvas.width / 2,
     490
 );
-
-/* ŻÓŁTY ŚRODEK */
-
-ctx.fillStyle = "#ffd60a";
 
 ctx.fillText(
     dateText,
@@ -1374,6 +1376,42 @@ if(lesson.cancelled){
     ctx.fillStyle = "black";
 }
 
+    /* TŁO POD ZAJĘCIAMI */
+
+const longestLine =
+    lesson.lines.reduce((a,b)=>
+        a.length > b.length ? a : b
+    );
+
+const bgWidth =
+    ctx.measureText(longestLine).width + 70;
+
+const bgHeight =
+    (lesson.lines.length * customLineHeight) + 25;
+
+ctx.fillStyle = "rgba(255,255,255,0.22)";
+
+roundRect(
+    ctx,
+    (canvas.width / 2) - (bgWidth / 2),
+    yPos - lessonFontSize + 10,
+    bgWidth,
+    bgHeight,
+    24,
+    true,
+    false
+);
+
+/* PRZYWRÓĆ KOLOR TEKSTU */
+
+if(lesson.cancelled){
+
+    ctx.fillStyle = "#ff2b2b";
+
+}else{
+
+    ctx.fillStyle = "black";
+}
     lesson.lines.forEach((line,lineIndex)=>{
 
         const textY =
