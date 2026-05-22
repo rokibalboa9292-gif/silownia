@@ -1198,8 +1198,13 @@ lessons.forEach((lesson)=>{
 
     lines.push(currentLine);
 
-    const lessonHeight =
-    (lines.length * lineHeight) + 15;
+    const cancelledExtra =
+lesson.cancelled ? 60 : 0;
+
+const lessonHeight =
+(lines.length * lineHeight) +
+35 +
+cancelledExtra;
 
     totalHeight += lessonHeight;
 
@@ -1304,10 +1309,10 @@ preparedLessons.forEach((lesson,index)=>{
         ctx.font = "52px 'Super Salad'";
 
         ctx.fillText(
-            "ODWOŁANE",
-            135,
-            yPos + (lesson.lines.length * lineHeight) - 12
-        );
+    "ODWOŁANE",
+    135,
+    yPos + (lesson.lines.length * lineHeight) + 8
+);
     }
 
     yPos += lesson.lessonHeight;
