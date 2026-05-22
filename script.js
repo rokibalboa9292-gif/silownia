@@ -1145,7 +1145,7 @@ if(lessonCount <= 2){
 
 }else if(lessonCount === 4){
 
-    dynamicFontSize = 92;
+    dynamicFontSize = 118;
 
 }else{
 
@@ -1215,7 +1215,7 @@ lessons.forEach((lesson)=>{
 PANEL + WYŚRODKOWANIE
 ========================= */
 
-const panelPadding = 40;
+const panelPadding = 30;
 
 const dynamicPanelHeight =
     totalHeight + (panelPadding * 2);
