@@ -1199,7 +1199,7 @@ lessons.forEach((lesson)=>{
     lines.push(currentLine);
 
     const lessonHeight =
-    (lines.length * lineHeight) + 55;
+    (lines.length * lineHeight) + 15;
 
     totalHeight += lessonHeight;
 
@@ -1213,13 +1213,11 @@ lessons.forEach((lesson)=>{
 PANEL DYNAMICZNY
 ========================= */
 
-const panelPaddingTop = 55;
-const panelPaddingBottom = 55;
+const panelPaddingTop = 40;
+const panelPaddingBottom = 40;
 
 const dynamicPanelHeight =
-    totalHeight +
-    panelPaddingTop +
-    panelPaddingBottom;
+    totalHeight + 80;
 
 const panelY =
     (canvas.height / 2) - (dynamicPanelHeight / 2) + 170;
@@ -1246,8 +1244,11 @@ const panelHeight = dynamicPanelHeight;
 /* idealne wyśrodkowanie bloków */
 
 let yPos =
+    let yPos =
     panelTop +
-    ((panelHeight - totalHeight) / 2) + 35;/* =========================
+    (panelHeight / 2) -
+    (totalHeight / 2);
+/* =========================
 RENDER
 ========================= */
 
