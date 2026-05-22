@@ -1,4 +1,4 @@
-console.log("SCRIPT START heilll 2 D KING 6.0");
+console.log("SCRIPT START heilll 2 D KING 7.0");
 /* =========================
 FIREBASE
 ========================= */
@@ -1202,7 +1202,7 @@ const lineHeight = dynamicFontSize + 18;
 
 ctx.font = `${dynamicFontSize}px 'Super Salad'`;
 
-const maxWidth = 760;
+const maxWidth = 940;
 
 /* =========================
 PRZYGOTOWANIE BLOKÓW
@@ -1297,7 +1297,7 @@ const dynamicPanelHeight =
 
 const panelY =
     (canvas.height / 2) -
-    (dynamicPanelHeight / 2) + 170;
+    (dynamicPanelHeight / 2) + 260;
 
 /* PANEL */
 
@@ -1394,29 +1394,7 @@ if(lesson.cancelled){
         );
     });
 
-  /* ZAKREŚLACZ */
-
-const longestLine =
-    lesson.lines.reduce((a,b)=>
-        a.length > b.length ? a : b
-    );
-
-const textWidth =
-    ctx.measureText(longestLine).width;
-
-const markerY =
-    yPos -
-    (lessonFontSize * 0.72);
-
-ctx.fillStyle = "rgba(255,255,255,0.32)";
-
-ctx.fillRect(
-    (canvas.width / 2) - (textWidth / 2) - 18,
-    markerY,
-    textWidth + 36,
-    lessonFontSize * 0.95
-);
-
+  
 /* PRZYWRÓĆ KOLOR TEKSTU */
 
 if(lesson.cancelled){
