@@ -1364,7 +1364,7 @@ preparedLessons.forEach((lesson,index)=>{
 
     /* KOLOR ZAJĘĆ */
 
-ctx.lineWidth = 9;
+ctx.lineWidth = 11;
 ctx.strokeStyle = "white";
 
 if(lesson.cancelled){
