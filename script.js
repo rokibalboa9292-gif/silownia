@@ -1,4 +1,4 @@
-console.log("SCRIPT START heilll 2 D KING 2.0");
+console.log("SCRIPT START heilll 2 D KING 3.0");
 /* =========================
 FIREBASE
 ========================= */
@@ -1145,7 +1145,7 @@ if(lessonCount <= 2){
 
 }else if(lessonCount === 4){
 
-    dynamicFontSize = 118;
+    dynamicFontSize = 100;
 
 }else{
 
