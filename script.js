@@ -1189,15 +1189,15 @@ if(lessonCount <= 2){
 
 }else if(lessonCount === 3){
 
-    dynamicFontSize = 118;
+    dynamicFontSize = 128;
 
 }else if(lessonCount === 4){
 
-    dynamicFontSize = 110;
+    dynamicFontSize = 120;
 
 }else{
 
-    dynamicFontSize = 82;
+    dynamicFontSize = 92;
 }
 
 const lineHeight = dynamicFontSize + 18;
@@ -1276,7 +1276,7 @@ const customLineHeight =
     calculatedFontSize + 18;
 
 let lessonHeight =
-(lines.length * customLineHeight) + 45;
+(lines.length * customLineHeight) + 55;
 
     totalHeight += lessonHeight;
 
