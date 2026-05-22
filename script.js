@@ -1137,110 +1137,172 @@ function getRandomImage(){
 
         /* LISTA ZAJĘĆ */
 
-        const lessons = getTodaySchedule();
 
-        let yPos = 630;
+const lessons = getTodaySchedule();
 
-        lessons.forEach((lesson,index)=>{
+/* =========================
+DYNAMICZNY ROZMIAR FONTU
+========================= */
 
-            const offset =
-                Math.sin(Date.now()/600 + index) * 4;
+const lessonCount = lessons.length;
 
-            /* USUWANIE PROWADZĄCYCH */
+let dynamicFontSize = 92;
 
-            let cleanText = lesson.text.replace(/\s*\(.*?\)/g, "");
+if(lessonCount <= 2){
 
-            ctx.textAlign = "left";
-            ctx.font = "92px 'Super Salad'";
+    dynamicFontSize = 132;
 
-            /* ZAWIJANIE */
+}else if(lessonCount === 3){
 
-            const maxWidth = 760;
+    dynamicFontSize = 118;
 
-            const words = cleanText.split(" ");
-            const lines = [];
+}else if(lessonCount === 4){
 
-            let currentLine = words[0];
+    dynamicFontSize = 92;
 
-            for(let i = 1; i < words.length; i++){
+}else{
 
-                const testLine =
-                    currentLine + " " + words[i];
+    dynamicFontSize = 82;
+}
 
-                const metrics =
-                    ctx.measureText(testLine);
+const lineHeight = dynamicFontSize + 18;
 
-                if(metrics.width > maxWidth){
+ctx.font = `${dynamicFontSize}px 'Super Salad'`;
 
-                    lines.push(currentLine);
-                    currentLine = words[i];
+const maxWidth = 760;
 
-                }else{
+/* =========================
+PRZYGOTOWANIE BLOKÓW
+========================= */
 
-                    currentLine = testLine;
-                }
-            }
+const preparedLessons = [];
+
+let totalHeight = 0;
+
+lessons.forEach((lesson)=>{
+
+    let cleanText =
+        lesson.text.replace(/\s*\(.*?\)/g, "");
+
+    const words = cleanText.split(" ");
+
+    const lines = [];
+
+    let currentLine = words[0];
+
+    for(let i = 1; i < words.length; i++){
+
+        const testLine =
+            currentLine + " " + words[i];
+
+        const metrics =
+            ctx.measureText(testLine);
+
+        if(metrics.width > maxWidth){
 
             lines.push(currentLine);
+            currentLine = words[i];
 
-            if(lesson.cancelled){
+        }else{
 
-                ctx.fillStyle = "#ff3b30";
+            currentLine = testLine;
+        }
+    }
 
-            }else{
+    lines.push(currentLine);
 
-                ctx.fillStyle = "white";
-            }
+    const lessonHeight =
+        (lines.length * lineHeight) + 110;
 
-            /* KROPKA */
+    totalHeight += lessonHeight;
 
-            ctx.beginPath();
+    preparedLessons.push({
+        ...lesson,
+        lines,
+        lessonHeight
+    });
+});
 
-            ctx.arc(
-                95,
-                yPos - 22 + offset,
-                12,
-                0,
-                Math.PI * 2
-            );
+/* =========================
+WYŚRODKOWANIE W PIONIE
+========================= */
 
-            ctx.fillStyle = lesson.cancelled
-                ? "#ff3b30"
-                : "#ff006e";
+const panelTop = 500;
+const panelHeight = 930;
 
-            ctx.fill();
+let yPos =
+    panelTop +
+    ((panelHeight - totalHeight) / 2) +
+    70;
 
-            /* TEKST */
+/* =========================
+RENDER
+========================= */
 
-            ctx.fillStyle = lesson.cancelled
-                ? "#ff3b30"
-                : "white";
+preparedLessons.forEach((lesson,index)=>{
 
-            lines.forEach((line,lineIndex)=>{
+    const offset =
+        Math.sin(Date.now()/600 + index) * 3;
 
-                ctx.fillText(
-                    line,
-                    130,
-                    yPos + (lineIndex * 82) + offset
-                );
-            });
+    ctx.textAlign = "left";
 
-            /* ODWOŁANE */
+    ctx.font = `${dynamicFontSize}px 'Super Salad'`;
 
-            if(lesson.cancelled){
+    /* KROPKA */
 
-                ctx.font = "bold 38px Arial";
+    ctx.beginPath();
 
-                ctx.fillText(
-                    "ODWOŁANE",
-                    130,
-                    yPos + (lines.length * 68) + 15
-                );
+    ctx.arc(
+        95,
+        yPos - 26 + offset,
+        13,
+        0,
+        Math.PI * 2
+    );
 
-                ctx.font = "bold 60px Arial";
-            }
+    ctx.fillStyle = lesson.cancelled
+        ? "#ff3b30"
+        : "#ff006e";
 
-            yPos += (lines.length * 82) + 95;
+    ctx.fill();
+
+    /* TEKST */
+
+    ctx.fillStyle = lesson.cancelled
+        ? "#ff3b30"
+        : "white";
+
+    ctx.shadowColor = "rgba(0,0,0,0.45)";
+    ctx.shadowBlur = 18;
+
+    lesson.lines.forEach((line,lineIndex)=>{
+
+        ctx.fillText(
+            line,
+            135,
+            yPos + (lineIndex * lineHeight) + offset
+        );
+    });
+
+    ctx.shadowBlur = 0;
+
+    /* ODWOŁANE */
+
+    if(lesson.cancelled){
+
+        ctx.font = "52px 'Super Salad'";
+
+        ctx.fillText(
+            "ODWOŁANE",
+            135,
+            yPos + (lesson.lines.length * lineHeight) + 20
+        );
+    }
+
+    yPos += lesson.lessonHeight;
+});
+
+
         });
 
         /* FOOTER */
