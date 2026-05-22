@@ -1,4 +1,4 @@
-console.log("SCRIPT START heilll 2 D KING 10.0");
+console.log("SCRIPT START heilll 2 D KING 120.0");
 /* =========================
 FIREBASE
 ========================= */
@@ -1263,12 +1263,12 @@ if(
     if(cancelledCount > 2){
 
         calculatedFontSize =
-            dynamicFontSize - 32;
+            dynamicFontSize - 132;
 
     }else if(cancelledCount > 1){
 
         calculatedFontSize =
-            dynamicFontSize - 18;
+            dynamicFontSize - 120;
     }
 }
 
@@ -1347,12 +1347,12 @@ preparedLessons.forEach((lesson,index)=>{
         if(cancelledCount > 2){
 
             lessonFontSize =
-                dynamicFontSize - 32;
+                dynamicFontSize - 132;
 
         }else if(cancelledCount > 1){
 
             lessonFontSize =
-                dynamicFontSize - 18;
+                dynamicFontSize - 132;
         }
     }
 
