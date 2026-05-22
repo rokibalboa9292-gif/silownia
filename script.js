@@ -1,4 +1,4 @@
-console.log("SCRIPT START newDUPP 995PPPPP0000");
+console.log("SCRIPT START new");
 /* =========================
 FIREBASE
 ========================= */
@@ -1246,12 +1246,6 @@ let yPos =
     (dynamicPanelHeight / 2) -
     (totalHeight / 2);
 
-/* START TEKSTU - IDEALNY ŚRODEK */
-
-let yPos =
-    panelY +
-    (dynamicPanelHeight / 2) -
-    (totalHeight / 2);
 /* =========================
 RENDER
 ========================= */
