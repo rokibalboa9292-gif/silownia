@@ -1235,18 +1235,38 @@ roundRect(
     false
 );
 /* =========================
-WYŚRODKOWANIE W PIONIE
+PANEL + WYŚRODKOWANIE
 ========================= */
 
-const panelTop = panelY;
-const panelHeight = dynamicPanelHeight;
+const panelPadding = 40;
 
-/* idealne wyśrodkowanie bloków */
+const dynamicPanelHeight =
+    totalHeight + (panelPadding * 2);
+
+const panelY =
+    (canvas.height / 2) -
+    (dynamicPanelHeight / 2) + 170;
+
+/* PANEL */
+
+ctx.fillStyle = "rgba(0,0,0,0.58)";
+
+roundRect(
+    ctx,
+    55,
+    panelY,
+    970,
+    dynamicPanelHeight,
+    42,
+    true,
+    false
+);
+
+/* START TEKSTU - IDEALNY ŚRODEK */
 
 let yPos =
-    let yPos =
-    panelTop +
-    (panelHeight / 2) -
+    panelY +
+    (dynamicPanelHeight / 2) -
     (totalHeight / 2);
 /* =========================
 RENDER
