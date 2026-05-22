@@ -1122,32 +1122,6 @@ function getRandomImage(){
 
         /* PANEL */
 
-        /* PANEL DYNAMICZNY */
-
-const panelPaddingTop = 90;
-const panelPaddingBottom = 90;
-
-const dynamicPanelHeight =
-    totalHeight +
-    panelPaddingTop +
-    panelPaddingBottom;
-
-const panelY =
-    (canvas.height / 2) - (dynamicPanelHeight / 2) + 80;
-
-ctx.fillStyle = "rgba(0,0,0,0.58)";
-
-roundRect(
-    ctx,
-    55,
-    panelY,
-    970,
-    dynamicPanelHeight,
-    42,
-    true,
-    false
-);
-
         /* LISTA ZAJĘĆ */
 
 
@@ -1235,7 +1209,33 @@ lessons.forEach((lesson)=>{
         lessonHeight
     });
 });
+/* =========================
+PANEL DYNAMICZNY
+========================= */
 
+const panelPaddingTop = 90;
+const panelPaddingBottom = 90;
+
+const dynamicPanelHeight =
+    totalHeight +
+    panelPaddingTop +
+    panelPaddingBottom;
+
+const panelY =
+    (canvas.height / 2) - (dynamicPanelHeight / 2) + 80;
+
+ctx.fillStyle = "rgba(0,0,0,0.58)";
+
+roundRect(
+    ctx,
+    55,
+    panelY,
+    970,
+    dynamicPanelHeight,
+    42,
+    true,
+    false
+);
 /* =========================
 WYŚRODKOWANIE W PIONIE
 ========================= */
