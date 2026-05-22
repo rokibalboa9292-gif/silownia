@@ -1202,7 +1202,7 @@ if(lessonCount <= 2){
 
 const lineHeight = dynamicFontSize + 18;
 
-ctx.font = `${dynamicFontSize}px 'Lilita One', cursive`;
+ctx.font = `${dynamicFontSize}px 'Audiowide', sans-serif`;
 
 const maxWidth = 940;
 
@@ -1360,7 +1360,7 @@ preparedLessons.forEach((lesson,index)=>{
         lessonFontSize + 18;
 
     ctx.font =
-        `${lessonFontSize}px 'Lilita One', cursive`;
+        `${lessonFontSize}px 'Audiowide', sans-serif`;
 
     /* KOLOR ZAJĘĆ */
 
