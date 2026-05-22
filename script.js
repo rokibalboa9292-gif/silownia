@@ -1202,8 +1202,24 @@ lessons.forEach((lesson)=>{
 
     lines.push(currentLine);
 
-    let lessonHeight =
-(lines.length * lineHeight) + 45;
+    let calculatedFontSize = dynamicFontSize;
+
+const cancelledCount =
+    lessons.filter(l => l.cancelled).length;
+
+if(
+    lessons.length > 3 &&
+    cancelledCount > 1 &&
+    lesson.cancelled
+){
+    calculatedFontSize = dynamicFontSize - 18;
+}
+
+const customLineHeight =
+    calculatedFontSize + 18;
+
+let lessonHeight =
+(lines.length * customLineHeight) + 45;
 
     totalHeight += lessonHeight;
 
@@ -1261,7 +1277,20 @@ preparedLessons.forEach((lesson,index)=>{
 
     ctx.textAlign = "left";
 
-    ctx.font = `${dynamicFontSize}px 'Super Salad'`;
+    let lessonFontSize = dynamicFontSize;
+
+const cancelledCount =
+    lessons.filter(l => l.cancelled).length;
+
+if(
+    lessons.length > 3 &&
+    cancelledCount > 1 &&
+    lesson.cancelled
+){
+    lessonFontSize = dynamicFontSize - 18;
+}
+
+ctx.font = `${lessonFontSize}px 'Super Salad'`;
 
     /* KROPKA */
 
@@ -1292,11 +1321,14 @@ preparedLessons.forEach((lesson,index)=>{
 
     lesson.lines.forEach((line,lineIndex)=>{
 
-        ctx.fillText(
-            line,
-            135,
-            yPos + (lineIndex * lineHeight) + offset
-        );
+        const customLineHeight =
+    lessonFontSize + 18;
+
+ctx.fillText(
+    line,
+    135,
+    yPos + (lineIndex * customLineHeight) + offset
+);
     });
 
     ctx.shadowBlur = 0;
