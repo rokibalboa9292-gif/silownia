@@ -1,4 +1,4 @@
-console.log("SCRIPT START heilll 2 D KING 3.0");
+console.log("SCRIPT START heilll 2 D KING 4.0");
 /* =========================
 FIREBASE
 ========================= */
@@ -1349,6 +1349,36 @@ ctx.fillText(
 
 });
 
+        /* =========================
+GRADIENT POD FOOTER
+========================= */
+
+const footerGradient =
+    ctx.createLinearGradient(
+        0,
+        1450,
+        0,
+        canvas.height
+    );
+
+footerGradient.addColorStop(
+    0,
+    "rgba(0,0,0,0)"
+);
+
+footerGradient.addColorStop(
+    1,
+    "rgba(0,0,0,0.5)"
+);
+
+ctx.fillStyle = footerGradient;
+
+ctx.fillRect(
+    0,
+    1450,
+    canvas.width,
+    canvas.height - 1450
+);
         /* FOOTER */
 
         ctx.textAlign = "center";
