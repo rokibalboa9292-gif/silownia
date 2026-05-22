@@ -1,4 +1,4 @@
-console.log("SCRIPT START heilll 2 D KING 7.0");
+console.log("SCRIPT START heilll 2 D KING 8.0");
 /* =========================
 FIREBASE
 ========================= */
