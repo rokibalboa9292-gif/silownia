@@ -1046,9 +1046,10 @@ function getRandomImage(){
     return random;
 }async function generateStory(){
 
-    if(!ctx || !canvas){
-        return;
-    }
+    const canvas = document.getElementById("storyCanvas");
+    if(!canvas) return;
+
+    const ctx = canvas.getContext("2d");
 
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = "high";
