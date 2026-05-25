@@ -17,6 +17,24 @@ background:#f2f2f2;
 color:#111;
 line-height:1.6;
 }
+.add20 {
+    margin-top: 6px;
+    width: 100%;
+    height: 28px;
+
+    border: none;
+    border-radius: 6px;
+
+    background: #111;
+    color: white;
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.add20:active {
+    transform: scale(0.97);
+}
 #storyJumpBtn {
     position: fixed !important;
     top: calc(env(safe-area-inset-top, 0px) + 12px);
