@@ -1,4 +1,4 @@
-console.log("SCRIPT START 00029992.0");
+console.log("SCRIPT START 0");
 /* =========================
 FIREBASE
 ========================= */
@@ -972,6 +972,12 @@ const storyImages = [
 const storyLogo = "/stories/logo.png";
 
 function getStorySettings(){
+    return {
+        baseScale: 1,
+    };
+}
+
+function getStorySettings(){
 
     return {
         baseScale: Number(document.getElementById("fontScale")?.value || 1),
@@ -1046,10 +1052,7 @@ function getRandomImage(){
     return random;
 }async function generateStory(){
 
-    const canvas = document.getElementById("storyCanvas");
-    if(!canvas) return;
-
-    const ctx = canvas.getContext("2d");
+    if(!canvas || !ctx) return;
 
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = "high";
@@ -1213,7 +1216,6 @@ JEDNA ZMIENNA DO SKALOWANIA
 0.8 = mniejsze
 */
 
-const FONT_SCALE = 1.0;
 
 /* =========================
 BAZOWE FONTY
@@ -1253,11 +1255,9 @@ if(lessonCount <= 2){
 FINAL SCALE
 ========================= */
 
-dynamicFontSize =
-Math.round(dynamicFontSize * FONT_SCALE);
+
 
 const lineHeight = dynamicFontSize + 18;
-
 ctx.font = dynamicFontSize + "px Audiowide";
 
 const maxWidth = 940;
@@ -1317,11 +1317,7 @@ const settings = getStorySettings();
 let scale = settings.baseScale;
 
 if(cancelledCount >= 3){
-    scale = settings.scale3;
-}else if(cancelledCount === 2){
-    scale = settings.scale2;
-}else if(cancelledCount === 1){
-    scale = settings.scale1;
+    scale = 0.82;
 }
 
 calculatedFontSize =
