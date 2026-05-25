@@ -17,7 +17,34 @@ background:#f2f2f2;
 color:#111;
 line-height:1.6;
 }
+ #storyJumpBtn {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
 
+    background: rgba(0,0,0,0.75);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 999999; /* klucz — zawsze ponad wszystkim */
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+#storyJumpBtn:hover {
+    background: rgba(0,0,0,0.9);
+    transform: scale(1.05);
+}
 .section{
 background:white;
 border-radius:22px;
