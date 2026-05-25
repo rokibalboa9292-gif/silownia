@@ -1308,7 +1308,7 @@ lessons.forEach((lesson)=>{
 
     lines.push(currentLine);
 
-   let calculatedFontSize = dynamicFontSize;
+let calculatedFontSize = dynamicFontSize;
 
 const cancelledCount =
     lessons.filter(l => l.cancelled).length;
@@ -1329,9 +1329,13 @@ if(cancelledCount >= 3){
 calculatedFontSize =
     Math.round(dynamicFontSize * scale);
 
+/* 🔥 DODAJ TO (BRAKUJĄCA DEFINICJA) */
+const customLineHeight =
+    calculatedFontSize + settings.lineSpacing;
 
+/* TERAZ DOPIERO LICZ WYSOKOŚĆ */
 let lessonHeight =
-(lines.length * customLineHeight) + 55;
+    (lines.length * customLineHeight) + 55;
 
     totalHeight += lessonHeight;
 
@@ -1655,8 +1659,4 @@ window.addEventListener("load", () => {
     if (!canvas) return;
     ctx = canvas.getContext("2d");
 });
-window.addEventListener("load", () => {
-    canvas = document.getElementById("storyCanvas");
-    if (!canvas) return;
-    ctx = canvas.getContext("2d");
-});
+
