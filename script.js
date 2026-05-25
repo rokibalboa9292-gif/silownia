@@ -173,6 +173,7 @@ function toggleLessonCancellation(day,index){
 function showSchedule(day, element){
 
     selectedDay = day;
+    generateStory();
     
     document.querySelectorAll(".day-btn").forEach(btn=>{
         btn.classList.remove("active");
@@ -188,7 +189,9 @@ function showSchedule(day, element){
 
     const cancelledLessons = getCancelledLessons(day);
 
-    schedules[day].forEach((item,index)=>{
+   if(!schedules[day]) return;
+
+schedules[day].forEach((item,index)=>{
 
         const div = document.createElement("div");
         div.className = "schedule-item";
@@ -1030,10 +1033,13 @@ function getRandomImage(){
     return random;
 }async function generateStory(){
 
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+
     const imagePath = getRandomImage();
 
-    const img = new Image();
-    const logo = new Image();
+    const img = new window.Image();
+    const logo = new window.Image();
 
     img.crossOrigin = "anonymous";
     logo.crossOrigin = "anonymous";
@@ -1042,13 +1048,15 @@ function getRandomImage(){
     logo.src = storyLogo;
 
     Promise.all([
-        new Promise(resolve => {
-            img.onload = resolve;
-        }),
-        new Promise(resolve => {
-            logo.onload = resolve;
-        })
-    ]).then(() => {
+    new Promise((resolve,reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+    }),
+    new Promise((resolve,reject) => {
+        logo.onload = resolve;
+        logo.onerror = reject;
+    })
+]).then(() => {
 
         ctx.clearRect(0,0,canvas.width,canvas.height);
 
@@ -1232,7 +1240,7 @@ Math.round(dynamicFontSize * FONT_SCALE);
 
 const lineHeight = dynamicFontSize + 18;
 
-ctx.font = `${dynamicFontSize}px 'Audiowide';
+ctx.font = `ctx.font = `${dynamicFontSize}px Audiowide`;
 
 const maxWidth = 940;
 
@@ -1293,12 +1301,12 @@ if(
     if(cancelledCount > 2){
 
         calculatedFontSize =
-            dynamicFontSize - 132;
+    Math.round(dynamicFontSize * 0.82);
 
     }else if(cancelledCount > 1){
 
         calculatedFontSize =
-            dynamicFontSize - 120;
+            Math.round(dynamicFontSize * 0.86);
     }
 }
 
@@ -1377,12 +1385,12 @@ preparedLessons.forEach((lesson,index)=>{
         if(cancelledCount > 2){
 
             lessonFontSize =
-                dynamicFontSize - 132;
+                Math.round(dynamicFontSize * 0.82);
 
         }else if(cancelledCount > 1){
 
             lessonFontSize =
-                dynamicFontSize - 132;
+                Math.round(dynamicFontSize * 0.82);
         }
     }
 
@@ -1390,7 +1398,7 @@ preparedLessons.forEach((lesson,index)=>{
         lessonFontSize + 18;
 
     ctx.font =
-        `${lessonFontSize}px 'Audiowide';
+        `${lessonFontSize}px Audiowide`;
 
     /* KOLOR ZAJĘĆ */
 
@@ -1534,6 +1542,10 @@ ctx.fillText(
     1715
 );
 
+        }).catch(err => {
+
+        console.error("Story error:", err);
+
     });
 }
 
@@ -1615,3 +1627,5 @@ window.addEventListener("load",()=>{
     },500);
 
 });
+
+console.log("SCRIPT LOADED OK");
