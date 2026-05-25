@@ -971,6 +971,16 @@ const storyImages = [
 
 const storyLogo = "/stories/logo.png";
 
+function getStorySettings(){
+
+    return {
+        baseScale: Number(document.getElementById("fontScale")?.value || 1),
+        scale3: Number(document.getElementById("scale3")?.value || 0.80),
+        scale2: Number(document.getElementById("scale2")?.value || 0.86),
+        scale1: Number(document.getElementById("scale1")?.value || 0.92),
+    };
+}
+
 
 
 const generateStoryBtn = document.getElementById("generateStoryBtn");
@@ -1301,14 +1311,16 @@ const cancelledCount =
     lessons.filter(l => l.cancelled).length;
 
 /* JEDNA ZMIENNA STERUJĄCA */
-let scale = 1;
+const settings = getStorySettings();
+
+let scale = settings.baseScale;
 
 if(cancelledCount >= 3){
-    scale = 0.80;
+    scale = settings.scale3;
 }else if(cancelledCount === 2){
-    scale = 0.86;
+    scale = settings.scale2;
 }else if(cancelledCount === 1){
-    scale = 0.92;
+    scale = settings.scale1;
 }
 
 calculatedFontSize =
