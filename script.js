@@ -1,4 +1,4 @@
-console.log("SCRIPT START heilll 2 D KING 120.0");
+console.log("SCRIPT START 120.0");
 /* =========================
 FIREBASE
 ========================= */
