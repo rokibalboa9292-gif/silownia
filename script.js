@@ -1295,27 +1295,24 @@ lessons.forEach((lesson)=>{
 
     lines.push(currentLine);
 
-    let calculatedFontSize = dynamicFontSize;
+   let calculatedFontSize = dynamicFontSize;
 
 const cancelledCount =
     lessons.filter(l => l.cancelled).length;
 
-if(
-    lessons.length > 3 &&
-    lesson.cancelled
-){
+/* JEDNA ZMIENNA STERUJĄCA */
+let scale = 1;
 
-    if(cancelledCount > 2){
-
-        calculatedFontSize =
-    Math.round(dynamicFontSize * 0.82);
-
-    }else if(cancelledCount > 1){
-
-        calculatedFontSize =
-            Math.round(dynamicFontSize * 0.86);
-    }
+if(cancelledCount >= 3){
+    scale = 0.80;
+}else if(cancelledCount === 2){
+    scale = 0.86;
+}else if(cancelledCount === 1){
+    scale = 0.92;
 }
+
+calculatedFontSize =
+    Math.round(dynamicFontSize * scale);
 
 const customLineHeight =
     calculatedFontSize + 18;
