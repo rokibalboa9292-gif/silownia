@@ -1335,7 +1335,7 @@ const customLineHeight =
 
 /* TERAZ DOPIERO LICZ WYSOKOŚĆ */
 let lessonHeight =
-    (lines.length * customLineHeight) + 55;
+(lines.length * (calculatedFontSize + settings.lineSpacing)) + 55;
 
     totalHeight += lessonHeight;
 
@@ -1393,29 +1393,25 @@ preparedLessons.forEach((lesson,index)=>{
 
     ctx.textAlign = "center";
 
-    let lessonFontSize = dynamicFontSize;
+   const settings = getStorySettings();
 
-    const cancelledCount =
-        lessons.filter(l => l.cancelled).length;
+const cancelledCount =
+    lessons.filter(l => l.cancelled).length;
 
-    if(
-        lessons.length > 3 &&
-        lesson.cancelled
-    ){
+let scale = settings.baseScale;
 
-        if(cancelledCount > 2){
+if(cancelledCount >= 3){
+    scale = settings.scale3;
+}else if(cancelledCount === 2){
+    scale = settings.scale2;
+}else if(cancelledCount === 1){
+    scale = settings.scale1;
+}
 
-            lessonFontSize =
-                Math.round(dynamicFontSize * 0.82);
+const calculatedFontSize =
+    Math.round(dynamicFontSize * scale);
 
-        }else if(cancelledCount > 1){
-
-            lessonFontSize =
-                Math.round(dynamicFontSize * 0.82);
-        }
-    }
-
-    const customLineHeight =
+const customLineHeight =
     calculatedFontSize + settings.lineSpacing;
 
     ctx.font =
