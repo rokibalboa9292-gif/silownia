@@ -1240,7 +1240,7 @@ Math.round(dynamicFontSize * FONT_SCALE);
 
 const lineHeight = dynamicFontSize + 18;
 
-ctx.font = `ctx.font = dynamicFontSize + "px Audiowide";
+ctx.font = dynamicFontSize + "px Audiowide";
 
 const maxWidth = 940;
 
