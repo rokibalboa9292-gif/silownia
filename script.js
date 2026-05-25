@@ -1052,17 +1052,16 @@ function getRandomImage(){
     localStorage.setItem("lastStoryImage", random);
 
     return random;
-}async function generateStory(){
-
-    if(!canvas || !ctx) return;
+}async function generateStory(){async function generateStory() {
+    if (!canvas || !ctx) return;
 
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = "high";
 
     const imagePath = getRandomImage();
 
-    const img = new window.Image();
-    const logo = new window.Image();
+    const img = new Image();
+    const logo = new Image();
 
     img.crossOrigin = "anonymous";
     logo.crossOrigin = "anonymous";
@@ -1070,501 +1069,208 @@ function getRandomImage(){
     img.src = imagePath;
     logo.src = storyLogo;
 
-    Promise.all([
-    new Promise((resolve,reject) => {
-        img.onload = resolve;
-        img.onerror = reject;
-    }),
-    new Promise((resolve,reject) => {
-        logo.onload = resolve;
-        logo.onerror = reject;
-    })
-]).then(() => {
-
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-
-        /* TŁO */
-
-        const scale = Math.max(
-            canvas.width / img.width,
-            canvas.height / img.height
-        );
-
-        const x = (canvas.width / 2) - (img.width / 2) * scale;
-        const y = (canvas.height / 2) - (img.height / 2) * scale;
-
-        ctx.drawImage(
-            img,
-            x,
-            y,
-            img.width * scale,
-            img.height * scale
-        );
-
-       
-       /* LOGO */
-
-const logoWidth = 930;
-const logoHeight = (210 / 887) * logoWidth;
-
-/* BIAŁA POŚWIATA */
-
-ctx.shadowColor = "rgba(255,255,255,0.95)";
-ctx.shadowBlur = 35;
-
-ctx.drawImage(
-    logo,
-    (canvas.width / 2) - (logoWidth / 2),
-    70,
-    logoWidth,
-    logoHeight
-);
-
-/* ŻÓŁTA MOCNA POŚWIATA */
-
-ctx.shadowColor = "rgba(255,214,10,0.95)";
-ctx.shadowBlur = 90;
-
-ctx.drawImage(
-    logo,
-    (canvas.width / 2) - (logoWidth / 2),
-    70,
-    logoWidth,
-    logoHeight
-);
-
-/* FINAL LOGO */
-
-ctx.shadowBlur = 0;
-
-ctx.drawImage(
-    logo,
-    (canvas.width / 2) - (logoWidth / 2),
-    70,
-    logoWidth,
-    logoHeight
-);
-
-/* =========================
-DZIEŃ + DATA
-========================= */
-
-ctx.textAlign = "center";
-
-/* DZIEŃ */
-
-ctx.font = "bold 102px Arial";
-
-ctx.lineWidth = 8;
-ctx.strokeStyle = "white";
-
-ctx.fillStyle = "black";
-
-ctx.strokeText(
-    selectedDay.toUpperCase(),
-    canvas.width / 2,
-    385
-);
-
-ctx.fillText(
-    selectedDay.toUpperCase(),
-    canvas.width / 2,
-    385
-);
-
-/* DATA */
-
-const now = new Date();
-
-const dateText = now.toLocaleDateString("pl-PL",{
-    day:"2-digit",
-    month:"2-digit"
-});
-
-ctx.font = "bold 102px Arial";
-
-ctx.strokeText(
-    dateText,
-    canvas.width / 2,
-    490
-);
-
-ctx.fillText(
-    dateText,
-    canvas.width / 2,
-    490
-);
-
-ctx.shadowBlur = 0;
-
-        
-
-        /* PANEL */
-
-        /* LISTA ZAJĘĆ */
-
-
-const lessons = getTodaySchedule();
-
-
-/* =========================
-GLOBAL FONT SCALE
-========================= */
-
-/*
-JEDNA ZMIENNA DO SKALOWANIA
-1.0 = standard
-1.2 = większe
-0.8 = mniejsze
-*/
-
-
-/* =========================
-BAZOWE FONTY
-========================= */
-
-const FONT_SIZE_2 = 132;
-const FONT_SIZE_3 = 128;
-const FONT_SIZE_4 = 120;
-const FONT_SIZE_5 = 92;
-
-/* =========================
-AUTO DOBÓR
-========================= */
-
-const lessonCount = lessons.length;
-
-let dynamicFontSize = FONT_SIZE_5;
-
-if(lessonCount <= 2){
-
-    dynamicFontSize = FONT_SIZE_2;
-
-}else if(lessonCount === 3){
-
-    dynamicFontSize = FONT_SIZE_3;
-
-}else if(lessonCount === 4){
-
-    dynamicFontSize = FONT_SIZE_4;
-
-}else{
-
-    dynamicFontSize = FONT_SIZE_5;
-}
-
-/* =========================
-FINAL SCALE
-========================= */
-
-
-
-const lineHeight = dynamicFontSize + 18;
-ctx.font = dynamicFontSize + "px Audiowide";
-
-const maxWidth = 940;
-
-/* =========================
-PRZYGOTOWANIE BLOKÓW
-========================= */
-
-const preparedLessons = [];
-
-let totalHeight = 0;
-
-lessons.forEach((lesson)=>{
-
-    let cleanText =
-        lesson.text.replace(/\s*\(.*?\)/g, "");
-
-    if(lesson.cancelled){
-        cleanText += " ODWOŁANE";
-    }
-
-    const words = cleanText.split(" ");
-
-    const lines = [];
-
-    let currentLine = words[0];
-
-    for(let i = 1; i < words.length; i++){
-
-        const testLine =
-            currentLine + " " + words[i];
-
-        const metrics =
-            ctx.measureText(testLine);
-
-        if(metrics.width > maxWidth){
-
-            lines.push(currentLine);
-            currentLine = words[i];
-
-        }else{
-
-            currentLine = testLine;
-        }
-    }
-
-    lines.push(currentLine);
-
-let calculatedFontSize = dynamicFontSize;
-
-const cancelledCount =
-    lessons.filter(l => l.cancelled).length;
-
-/* USTAWIENIA Z SUWAKÓW */
-const settings = getStorySettings();
-
-let scale = settings.baseScale;
-
-if(cancelledCount >= 3){
-    scale = settings.scale3;
-}else if(cancelledCount === 2){
-    scale = settings.scale2;
-}else if(cancelledCount === 1){
-    scale = settings.scale1;
-}
-
-calculatedFontSize =
-    Math.round(dynamicFontSize * scale);
-
-/* 🔥 DODAJ TO (BRAKUJĄCA DEFINICJA) */
-const customLineHeight =
-    calculatedFontSize + settings.lineSpacing;
-
-/* TERAZ DOPIERO LICZ WYSOKOŚĆ */
-let lessonHeight =
-(lines.length * (calculatedFontSize + settings.lineSpacing)) + 55;
-
-    totalHeight += lessonHeight;
-
-    preparedLessons.push({
-        ...lesson,
-        lines,
-        lessonHeight
-    });
-});
-
-
-/* =========================
-PANEL + WYŚRODKOWANIE
-========================= */
-
-const panelPadding = 30;
-
-const dynamicPanelHeight =
-    totalHeight + (panelPadding * 2);
-
-const panelY =
-    (canvas.height / 2) -
-    (dynamicPanelHeight / 2) + 200;
-
-/* PANEL */
-
-ctx.fillStyle = "rgba(0,0,0,0)";
-
-roundRect(
-    ctx,
-    55,
-    panelY,
-    970,
-    dynamicPanelHeight,
-    42,
-    true,
-    false
-);
-
-/* START TEKSTU - IDEALNY ŚRODEK */
-
-let yPos =
-    panelY +
-    (dynamicPanelHeight / 2) -
-    (totalHeight / 2);
-
-/* =========================
-RENDER
-========================= */
-
-preparedLessons.forEach((lesson,index)=>{
-
-    const offset =
-        Math.sin(Date.now()/600 + index) * 3;
+    await Promise.all([
+        new Promise(res => img.onload = res),
+        new Promise(res => logo.onload = res)
+    ]);
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    /* =========================
+       BACKGROUND
+    ========================= */
+
+    const scale = Math.max(
+        canvas.width / img.width,
+        canvas.height / img.height
+    );
+
+    ctx.drawImage(
+        img,
+        (canvas.width - img.width * scale) / 2,
+        (canvas.height - img.height * scale) / 2,
+        img.width * scale,
+        img.height * scale
+    );
+
+    /* =========================
+       LOGO
+    ========================= */
+
+    const logoWidth = 930;
+    const logoHeight = (210 / 887) * logoWidth;
+
+    ctx.shadowColor = "rgba(255,255,255,0.9)";
+    ctx.shadowBlur = 30;
+
+    ctx.drawImage(
+        logo,
+        (canvas.width - logoWidth) / 2,
+        70,
+        logoWidth,
+        logoHeight
+    );
+
+    ctx.shadowBlur = 0;
+
+    /* =========================
+       HEADER
+    ========================= */
 
     ctx.textAlign = "center";
 
-   const settings = getStorySettings();
-
-const cancelledCount =
-    lessons.filter(l => l.cancelled).length;
-
-let scale = settings.baseScale;
-
-if(cancelledCount >= 3){
-    scale = settings.scale3;
-}else if(cancelledCount === 2){
-    scale = settings.scale2;
-}else if(cancelledCount === 1){
-    scale = settings.scale1;
-}
-
-const calculatedFontSize =
-    Math.round(dynamicFontSize * scale);
-
-const customLineHeight =
-    calculatedFontSize + settings.lineSpacing;
-
-    ctx.font =
-        lessonFontSize + "px Audiowide";
-
-    /* KOLOR ZAJĘĆ */
-
-ctx.lineWidth = 11;
-ctx.strokeStyle = "white";
-
-if(lesson.cancelled){
-
-    ctx.fillStyle = "#ff2b2b";
-
-}else{
-
-    ctx.fillStyle = "black";
-}
-
-    /* TŁO POD ZAJĘCIAMI */
-
-const longestLine =
-    lesson.lines.reduce((a,b)=>
-        a.length > b.length ? a : b
-    );
-
-const bgWidth =
-    ctx.measureText(longestLine).width + 70;
-
-const bgHeight =
-    (lesson.lines.length * customLineHeight) + 25;
-
-ctx.fillStyle = "rgba(255,255,255,0.99)";
-
-roundRect(
-    ctx,
-    (canvas.width / 2) - (bgWidth / 2),
-    yPos - lessonFontSize + 10,
-    bgWidth,
-    bgHeight,
-    24,
-    true,
-    false
-);
-
-/* PRZYWRÓĆ KOLOR TEKSTU */
-
-if(lesson.cancelled){
-
-    ctx.fillStyle = "#ff2b2b";
-
-}else{
-
-    ctx.fillStyle = "black";
-}
-    lesson.lines.forEach((line,lineIndex)=>{
-
-        const textY =
-            yPos +
-            (lineIndex * customLineHeight) +
-            offset;
-
-        ctx.strokeText(
-            line,
-            canvas.width / 2,
-            textY
-        );
-
-        ctx.fillText(
-            line,
-            canvas.width / 2,
-            textY
-        );
+    const now = new Date();
+    const dateText = now.toLocaleDateString("pl-PL", {
+        day: "2-digit",
+        month: "2-digit"
     });
 
-  
-/* PRZYWRÓĆ KOLOR TEKSTU */
+    ctx.font = "bold 100px Arial";
 
-if(lesson.cancelled){
-
-    ctx.fillStyle = "#ff2b2b";
-
-}else{
-
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 8;
     ctx.fillStyle = "black";
-}
 
-    yPos += lesson.lessonHeight;
+    ctx.strokeText(selectedDay.toUpperCase(), canvas.width / 2, 380);
+    ctx.fillText(selectedDay.toUpperCase(), canvas.width / 2, 380);
 
-});
-        /* =========================
-GRADIENT POD FOOTER
-========================= */
+    ctx.strokeText(dateText, canvas.width / 2, 480);
+    ctx.fillText(dateText, canvas.width / 2, 480);
 
-const footerGradient =
-    ctx.createLinearGradient(
-        0,
-        1450,
-        0,
-        canvas.height
-    );
+    /* =========================
+       LESSON DATA
+    ========================= */
 
-footerGradient.addColorStop(
-    0,
-    "rgba(0,0,0,0)"
-);
+    const lessons = getTodaySchedule();
+    const cancelledCount = lessons.filter(l => l.cancelled).length;
+    const settings = getStorySettings();
 
-footerGradient.addColorStop(
-    1,
-    "rgba(0,0,0,0.5)"
-);
+    /* =========================
+       FONT SCALE (CLEAN)
+    ========================= */
 
-ctx.fillStyle = footerGradient;
+    const baseSizes = [132, 128, 120, 92];
+    let dynamicFontSize = baseSizes[Math.min(lessons.length - 1, 3)] || 92;
 
-ctx.fillRect(
-    0,
-    1450,
-    canvas.width,
-    canvas.height - 1450
-);
-        /* FOOTER */
+    const scale =
+        cancelledCount >= 3 ? settings.scale3 :
+        cancelledCount === 2 ? settings.scale2 :
+        cancelledCount === 1 ? settings.scale1 :
+        settings.baseScale;
 
-        ctx.textAlign = "center";
+    const fontSize = Math.round(dynamicFontSize * scale);
+    const lineHeight = fontSize + settings.lineSpacing;
 
-        ctx.fillStyle = "rgba(255,255,255,0.92)";
+    ctx.font = `${fontSize}px Audiowide`;
 
-        
+    /* =========================
+       PREP LESSONS
+    ========================= */
 
-        ctx.font = "bold 62px Arial";
+    const prepared = [];
+    let totalHeight = 0;
 
-ctx.lineWidth = 6;
-ctx.strokeStyle = "white";
+    const maxWidth = 940;
 
-ctx.strokeText(
-    "ZAPRASZAMY NA TRENING 🔥",
-    canvas.width / 2,
-    1715
-);
+    lessons.forEach(lesson => {
 
-ctx.fillStyle = "black";
+        const clean = lesson.text.replace(/\s*\(.*?\)/g, "") +
+            (lesson.cancelled ? " ODWOŁANE" : "");
 
-ctx.fillText(
-    "ZAPRASZAMY NA TRENING 🔥",
-    canvas.width / 2,
-    1715
-);
+        const words = clean.split(" ");
+        const lines = [];
 
-}).catch((err) => {
+        let line = words[0] || "";
 
-    console.error("Story error:", err);
+        for (let i = 1; i < words.length; i++) {
+            const test = line + " " + words[i];
+            if (ctx.measureText(test).width > maxWidth) {
+                lines.push(line);
+                line = words[i];
+            } else {
+                line = test;
+            }
+        }
 
-});
+        lines.push(line);
 
+        const height = lines.length * lineHeight + 50;
+
+        totalHeight += height;
+
+        prepared.push({ ...lesson, lines, height });
+    });
+
+    /* =========================
+       PANEL
+    ========================= */
+
+    const panelHeight = totalHeight + 60;
+    const panelY = (canvas.height - panelHeight) / 2 + 200;
+
+    let y = panelY + 30;
+
+    ctx.fillStyle = "rgba(0,0,0,0)";
+
+    roundRect(ctx, 55, panelY, 970, panelHeight, 42, true, false);
+
+    /* =========================
+       RENDER LESSONS
+    ========================= */
+
+    prepared.forEach((lesson, i) => {
+
+        const offset = Math.sin(Date.now() / 600 + i) * 2;
+
+        const bgHeight = lesson.lines.length * lineHeight + 20;
+
+        const longest = lesson.lines.reduce((a, b) =>
+            a.length > b.length ? a : b
+        );
+
+        const bgWidth = ctx.measureText(longest).width + 70;
+
+        ctx.fillStyle = "rgba(255,255,255,0.98)";
+
+        roundRect(
+            ctx,
+            (canvas.width - bgWidth) / 2,
+            y - fontSize,
+            bgWidth,
+            bgHeight,
+            24,
+            true,
+            false
+        );
+
+        ctx.fillStyle = lesson.cancelled ? "#ff2b2b" : "black";
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 10;
+
+        lesson.lines.forEach((line, j) => {
+
+            const ty = y + j * lineHeight + offset;
+
+            ctx.strokeText(line, canvas.width / 2, ty);
+            ctx.fillText(line, canvas.width / 2, ty);
+        });
+
+        y += lesson.height;
+    });
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    ctx.font = "bold 62px Arial";
+    ctx.fillStyle = "black";
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 6;
+
+    const footer = "ZAPRASZAMY NA TRENING 🔥";
+
+    ctx.strokeText(footer, canvas.width / 2, 1715);
+    ctx.fillText(footer, canvas.width / 2, 1715);
 }
 
 function roundRect(ctx,x,y,width,height,radius,fill,stroke){
