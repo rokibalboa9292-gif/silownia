@@ -1542,11 +1542,12 @@ ctx.fillText(
     1715
 );
 
-        }).catch(err => {
+}).catch((err) => {
 
-        console.error("Story error:", err);
+    console.error("Story error:", err);
 
-    });
+});
+
 }
 
 function roundRect(ctx,x,y,width,height,radius,fill,stroke){
