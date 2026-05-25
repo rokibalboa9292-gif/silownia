@@ -1,4 +1,4 @@
-console.log("SCRIPT START 10");
+console.log("SCRIPT START 1-0");
 /* =========================
 FIREBASE
 ========================= */
