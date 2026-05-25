@@ -983,6 +983,9 @@ function getStorySettings(){
         scale3: Number(document.getElementById("scale3")?.value || 0.80),
         scale2: Number(document.getElementById("scale2")?.value || 0.86),
         scale1: Number(document.getElementById("scale1")?.value || 0.92),
+
+
+        lineSpacing: Number(document.getElementById("lineSpacing")?.value || 18),
     };
 }
 
@@ -1310,20 +1313,22 @@ lessons.forEach((lesson)=>{
 const cancelledCount =
     lessons.filter(l => l.cancelled).length;
 
-/* JEDNA ZMIENNA STERUJĄCA */
+/* USTAWIENIA Z SUWAKÓW */
 const settings = getStorySettings();
 
 let scale = settings.baseScale;
 
 if(cancelledCount >= 3){
-    scale = 0.82;
+    scale = settings.scale3;
+}else if(cancelledCount === 2){
+    scale = settings.scale2;
+}else if(cancelledCount === 1){
+    scale = settings.scale1;
 }
 
 calculatedFontSize =
     Math.round(dynamicFontSize * scale);
 
-const customLineHeight =
-    calculatedFontSize + 18;
 
 let lessonHeight =
 (lines.length * customLineHeight) + 55;
