@@ -173,7 +173,11 @@ function toggleLessonCancellation(day,index){
 function showSchedule(day, element){
 
     selectedDay = day;
-    generateStory();
+    setTimeout(() => {
+    if (typeof generateStory === "function") {
+        generateStory();
+    }
+}, 50);
     
     document.querySelectorAll(".day-btn").forEach(btn=>{
         btn.classList.remove("active");
@@ -953,8 +957,8 @@ if(googleBtn){
     googleBtn.addEventListener("click", googleLogin);
 }
 
-const canvas = document.getElementById("storyCanvas");
-const ctx = canvas.getContext("2d");
+let canvas;
+let ctx;
 /* =========================
 INSTAGRAM STORY GENERATOR
 ========================= */
@@ -1629,14 +1633,25 @@ if(downloadStoryBtn){
 
 }
 
-window.addEventListener("load",()=>{
-
-    setTimeout(()=>{
-        generateStory();
-    },500);
-
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        if (typeof generateStory === "function") {
+            generateStory();
+        }
+    }, 300);
 });
 
 console.log("SCRIPT LOADED OK");
 
 window.generateStory = generateStory;
+
+window.addEventListener("load", () => {
+    canvas = document.getElementById("storyCanvas");
+    if (!canvas) return;
+    ctx = canvas.getContext("2d");
+});
+window.addEventListener("load", () => {
+    canvas = document.getElementById("storyCanvas");
+    if (!canvas) return;
+    ctx = canvas.getContext("2d");
+});
