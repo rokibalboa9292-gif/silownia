@@ -1372,11 +1372,18 @@ if (storyJumpBtn) {
 }
 });
 
-document.querySelectorAll(".add20").forEach(btn => {
-    btn.addEventListener("click", () => {
-        const input = document.getElementById(btn.dataset.target);
-        if (!input) return;
+window.addEventListener("DOMContentLoaded", () => {
 
-        input.value = (Number(input.value) || 0) + 20;
+    document.querySelectorAll(".add20").forEach(btn => {
+        btn.addEventListener("click", () => {
+
+            const input = document.getElementById(btn.dataset.target);
+            if (!input) return;
+
+            const current = Number(input.value) || 0;
+            input.value = current + 20;
+
+        });
     });
+
 });
