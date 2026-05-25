@@ -33,6 +33,15 @@ rel="stylesheet">
 </head>
 
 <body>
+  <script>
+if ("serviceWorker" in navigator) {
+
+    navigator.serviceWorker
+    .register("/sw.js")
+    .catch(err => console.log(err));
+
+}
+</script>
 <div id="auth-screen">
 
 <div class="auth-box">
