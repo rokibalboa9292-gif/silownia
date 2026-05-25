@@ -580,12 +580,48 @@ renderTasks(currentTasks);
 
 });
 
-let selectedDay = "Poniedziałek";
+const dni = [
+    "Niedziela",
+    "Poniedziałek",
+    "Wtorek",
+    "Środa",
+    "Czwartek",
+    "Piątek",
+    "Sobota"
+];
 
-showSchedule(
-"Poniedziałek",
-document.querySelector(".day-btn")
-);
+let selectedDay = dni[new Date().getDay()];
+
+window.addEventListener("load", () => {
+
+    const dni = [
+        "Niedziela",
+        "Poniedziałek",
+        "Wtorek",
+        "Środa",
+        "Czwartek",
+        "Piątek",
+        "Sobota"
+    ];
+
+    const today = dni[new Date().getDay()];
+
+    const buttons = document.querySelectorAll(".day-btn");
+
+    let activeBtn = null;
+
+    buttons.forEach(btn => {
+        if (btn.textContent.trim() === today.slice(0, 2) ||
+            btn.textContent.trim() === today.slice(0, 3) ||
+            btn.textContent.includes(today.substring(0, 3))
+        ) {
+            activeBtn = btn;
+        }
+    });
+
+    showSchedule(today, activeBtn || document.querySelector(".day-btn"));
+
+});
 
 renderTasks(currentTasks);
 
