@@ -344,7 +344,35 @@ POLICZ SUMĘ
 </div>
 
 </div>
+<div id="story-controls" style="padding:15px;background:#111;color:white;border-radius:12px;margin-bottom:10px;">
 
+<h3>Story – sterowanie fontem</h3>
+
+<label>Skala bazowa</label>
+<input id="fontScale" type="number" step="0.05" value="1">
+
+<br><br>
+
+<label>3+ odwołane</label>
+<input id="scale3" type="number" step="0.01" value="0.80">
+
+<br><br>
+
+<label>2 odwołane</label>
+<input id="scale2" type="number" step="0.01" value="0.86">
+
+<br><br>
+
+<label>1 odwołane</label>
+<input id="scale1" type="number" step="0.01" value="0.92">
+
+<br><br>
+
+<button onclick="generateStory()" style="padding:10px;border:none;border-radius:8px;background:#2a9d8f;color:white;">
+Zastosuj i odśwież story
+</button>
+
+</div>
   <div class="section story-section">
 
 <h1>Dzisiejsze Story</h1>
