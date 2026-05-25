@@ -1175,30 +1175,60 @@ ctx.shadowBlur = 0;
 
 const lessons = getTodaySchedule();
 
+
 /* =========================
-DYNAMICZNY ROZMIAR FONTU
+GLOBAL FONT SCALE
+========================= */
+
+/*
+JEDNA ZMIENNA DO SKALOWANIA
+1.0 = standard
+1.2 = większe
+0.8 = mniejsze
+*/
+
+const FONT_SCALE = 1.0;
+
+/* =========================
+BAZOWE FONTY
+========================= */
+
+const FONT_SIZE_2 = 132;
+const FONT_SIZE_3 = 128;
+const FONT_SIZE_4 = 120;
+const FONT_SIZE_5 = 92;
+
+/* =========================
+AUTO DOBÓR
 ========================= */
 
 const lessonCount = lessons.length;
 
-let dynamicFontSize = (-20) - 92;
+let dynamicFontSize = FONT_SIZE_5;
 
 if(lessonCount <= 2){
 
-    dynamicFontSize = (-20) - 132;
+    dynamicFontSize = FONT_SIZE_2;
 
 }else if(lessonCount === 3){
 
-    dynamicFontSize = (-20) - 128;
+    dynamicFontSize = FONT_SIZE_3;
 
 }else if(lessonCount === 4){
 
-    dynamicFontSize = (-20) - 120;
+    dynamicFontSize = FONT_SIZE_4;
 
 }else{
 
-    dynamicFontSize = (-20) - 92;
+    dynamicFontSize = FONT_SIZE_5;
 }
+
+/* =========================
+FINAL SCALE
+========================= */
+
+dynamicFontSize =
+Math.round(dynamicFontSize * FONT_SCALE);
 
 const lineHeight = dynamicFontSize + 18;
 
