@@ -1,4 +1,4 @@
-console.log("SCRIPT START 120.0");
+console.log("SCRIPT START 1220.0");
 /* =========================
 FIREBASE
 ========================= */
@@ -1240,7 +1240,7 @@ Math.round(dynamicFontSize * FONT_SCALE);
 
 const lineHeight = dynamicFontSize + 18;
 
-ctx.font = `ctx.font = `${dynamicFontSize}px Audiowide`;
+ctx.font = `ctx.font = dynamicFontSize + "px Audiowide";
 
 const maxWidth = 940;
 
@@ -1398,7 +1398,7 @@ preparedLessons.forEach((lesson,index)=>{
         lessonFontSize + 18;
 
     ctx.font =
-        `${lessonFontSize}px Audiowide`;
+        lessonFontSize + "px Audiowide";
 
     /* KOLOR ZAJĘĆ */
 
