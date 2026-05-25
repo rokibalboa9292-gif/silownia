@@ -971,11 +971,6 @@ const storyImages = [
 
 const storyLogo = "/stories/logo.png";
 
-function getStorySettings(){
-    return {
-        baseScale: 1,
-    };
-}
 
 function getStorySettings(){
 
