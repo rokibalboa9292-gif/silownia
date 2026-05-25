@@ -1177,7 +1177,17 @@ ctx.drawImage(
        LESSON DATA
     ========================= */
 
-    const lessons = getTodaySchedule();
+    let lessons = getTodaySchedule();
+
+let extraBlock = 0;
+
+const hasSpine = lessons.some(l =>
+    l.text.toLowerCase().includes("zdrowy kręgosłup")
+);
+
+if (hasSpine) {
+    extraBlock = 1;
+}
     const cancelledCount = lessons.filter(l => l.cancelled).length;
     const settings = getStorySettings();
 
@@ -1186,7 +1196,10 @@ ctx.drawImage(
     ========================= */
 
     const baseSizes = [132, 128, 120, 92];
-    let dynamicFontSize = baseSizes[Math.min(lessons.length - 1, 3)] || 92;
+    const lessonCount = lessons.length + extraBlock;
+
+let dynamicFontSize =
+    baseSizes[Math.min(lessonCount - 1, 3)] || 92;
 
     const scale =
         cancelledCount >= 3 ? settings.scale3 :
