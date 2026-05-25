@@ -1,4 +1,4 @@
-console.log("SCRIPT START 13330.0");
+console.log("SCRIPT START 222.0");
 /* =========================
 FIREBASE
 ========================= */
@@ -218,7 +218,9 @@ schedules[day].forEach((item,index)=>{
 
     showSchedule(day,element);
 
+    if(typeof generateStory === "function"){
     generateStory();
+}
 });
 
         div.appendChild(lessonText);
@@ -951,6 +953,8 @@ if(googleBtn){
     googleBtn.addEventListener("click", googleLogin);
 }
 
+const canvas = document.getElementById("storyCanvas");
+const ctx = canvas.getContext("2d");
 /* =========================
 INSTAGRAM STORY GENERATOR
 ========================= */
@@ -967,8 +971,7 @@ const storyImages = [
 
 const storyLogo = "/stories/logo.png";
 
-const canvas = document.getElementById("storyCanvas");
-const ctx = canvas.getContext("2d");
+
 
 const generateStoryBtn = document.getElementById("generateStoryBtn");
 const downloadStoryBtn = document.getElementById("downloadStoryBtn");
@@ -1032,6 +1035,10 @@ function getRandomImage(){
 
     return random;
 }async function generateStory(){
+
+    if(!ctx || !canvas){
+        return;
+    }
 
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = "high";
