@@ -1412,7 +1412,7 @@ preparedLessons.forEach((lesson,index)=>{
     }
 
     const customLineHeight =
-        lessonFontSize + 18;
+    calculatedFontSize + settings.lineSpacing;
 
     ctx.font =
         lessonFontSize + "px Audiowide";
