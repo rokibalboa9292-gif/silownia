@@ -1,4 +1,4 @@
-console.log("SCRIPT START 0");
+console.log("SCRIPT START 10");
 /* =========================
 FIREBASE
 ========================= */
@@ -1638,3 +1638,5 @@ window.addEventListener("load",()=>{
 });
 
 console.log("SCRIPT LOADED OK");
+
+window.generateStory = generateStory;
