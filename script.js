@@ -1354,5 +1354,21 @@ window.addEventListener("load", () => {
     canvas = document.getElementById("storyCanvas");
     if (!canvas) return;
     ctx = canvas.getContext("2d");
+
+
+    const storyJumpBtn = document.getElementById("storyJumpBtn");
+
+if (storyJumpBtn) {
+    storyJumpBtn.addEventListener("click", () => {
+        const canvas = document.getElementById("storyCanvas");
+
+        if (canvas) {
+            canvas.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
+    });
+}
 });
 
