@@ -1052,7 +1052,7 @@ function getRandomImage(){
     localStorage.setItem("lastStoryImage", random);
 
     return random;
-}async function generateStory(){async function generateStory() {
+}async function generateStory(){
     if (!canvas || !ctx) return;
 
     ctx.imageSmoothingEnabled = true;
@@ -1085,13 +1085,13 @@ function getRandomImage(){
     canvas.height / img.height
 );
 
-    ctx.drawImage(
-        img,
-        (canvas.width - img.width * scale) / 2,
-        (canvas.height - img.height * scale) / 2,
-        img.width * scale,
-        img.height * scale
-    );
+ctx.drawImage(
+    img,
+    (canvas.width - img.width * bgScale) / 2,
+    (canvas.height - img.height * bgScale) / 2,
+    img.width * bgScale,
+    img.height * bgScale
+);
 
     /* =========================
        LOGO
@@ -1344,13 +1344,7 @@ if(downloadStoryBtn){
 
 }
 
-window.addEventListener("load", () => {
-    setTimeout(() => {
-        if (typeof generateStory === "function") {
-            generateStory();
-        }
-    }, 300);
-});
+
 
 console.log("SCRIPT LOADED OK");
 
