@@ -1080,10 +1080,10 @@ function getRandomImage(){
        BACKGROUND
     ========================= */
 
-    const scale = Math.max(
-        canvas.width / img.width,
-        canvas.height / img.height
-    );
+    const bgScale = Math.max(
+    canvas.width / img.width,
+    canvas.height / img.height
+);
 
     ctx.drawImage(
         img,
